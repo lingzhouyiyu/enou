@@ -1,0 +1,302 @@
+﻿<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+
+	<head>
+		<title>我的收货地址</title>
+		<meta charset="utf-8">
+		<meta name="viewport" content="target-densitydpi=device-dpi, width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+		<link href="common/css/mui.min.css" rel="stylesheet" />
+		<link href="common/css/fonts/font-awesome.min.css" rel="stylesheet" />
+		<link href="common/css/icon.css" rel="stylesheet" />
+		<link href="common/css/ui-base.css" rel="stylesheet" />
+		<link href="common/css/ui-box.css" rel="stylesheet" />
+		<link href="common/css/ui-color.css" rel="stylesheet" />
+		<link href="common/css/common.css" rel="stylesheet" />
+		<link href="common/css/control.css" rel="stylesheet" />
+		<link href="maincss/addr.css" rel="stylesheet" />
+	</head>
+
+	<body class="bc-text um-vp bc-bg">
+		<div class="ub ub-ver addr-list">
+
+		</div>
+		<div class="ub ub-ac ub-pc sc-text footer_line" style="padding-bottom: 0.6em;">
+			<span class="ub warmline"></span>
+			<span class="ub ft09">暂无更多地址信息</span>
+			<span class="ub warmline"></span>
+		</div>
+		<div class="ub ub-ac ub-pc goaddr-add">
+			<div class="ub ub-ac ub-pc">添加新地址</div>
+		</div>
+
+		<div class="addrtemp dhide">
+			<div class="ub ub-ver hisaddr-item">
+				<div class="ub ub-ac umar-b">
+					<div class="ub ub-ac username">
+
+					</div>
+					<div class="ub ub-ac ub-f1 ub-pe usertel">
+
+					</div>
+				</div>
+				<div class="ub ub-ac marb06 useraddr">
+
+				</div>
+				<div class="ub ub-ac addr-ctrlbox">
+					<div class="ub ub-ac setaddr" rel='check'>
+						<div class="ub ub-ac">
+							<img class="ub checkbox-before" src="common/images/checkbox-before.png" />
+							<img class="ub checkbox-after dhide" src="common/images/checkbox-after.png" />
+						</div>
+						<div class="ub colblue">默认地址</div>
+					</div>
+					<div class="ub ub-ac ub-f1 ub-pe">
+						<div class="ub ub-ac addr-editbtn">
+							<div class="ub ub-ac">
+								<img class="ub addr-ctrlimg" src="common/images/addr-edit.png" />
+
+							</div>
+							<div class="ub">编辑</div>
+						</div>
+						<div class="ub ub-ac addr-deletebtn">
+							<div class="ub ub-ac">
+								<img class="ub addr-ctrlimg" src="common/images/addr-delete.png" />
+
+							</div>
+							<div class="ub">删除</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+
+</html>
+<script src="common/js/jquery-2.1.4.min.js"></script>
+<script src="common/js/mui.min.js"></script>
+<script src="Fsuperjs/Fsuper.js"></script>
+<script>
+	$(function() {
+		var adduse_refresh = sessionStorage.getItem("addaddr-refresh");
+		var modifyuse_refresh = sessionStorage.getItem("modifyuse_refresh");
+		var u = navigator.userAgent;
+		var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/);
+		if(adduse_refresh) {
+			sessionStorage.removeItem("addaddr-refresh");
+			window.location.reload();
+		}
+		if(modifyuse_refresh) {
+			sessionStorage.removeItem("modifyuse_refresh");
+			window.location.reload();
+		}
+		if(isiOS) {
+			iosrefresh();
+		}
+
+		getaddrlist();
+	});
+
+	function getaddrlist() {
+		var furl = "/YNAPIManage/WeChatApi/GetLogisticsAddress";
+		$.ajax({
+			url: Serverurl + furl,
+			type: "GET",
+			async: false,
+			dataType: "json",
+			crossDomain: true,
+			xhrFields: {
+				withCredentials: true
+			},
+			success: function(result) {
+				if(result.type == 1) {
+					var datas = result.resultdata;
+					var length = datas.length;
+					if(length > 0) {
+						$('.footer_line').addClass('dhide');
+						for(var i = 0; i < length; i++) {
+							addaddr(datas[i]);
+
+						}
+					}
+				}
+			}
+		});
+	}
+
+	function addaddr(datas) {
+		var list = $(".addr-list");
+		var item = $(".addrtemp .hisaddr-item").clone();
+		var IsUse = datas.IsUse;
+		if(IsUse == 0 || IsUse == '0') {
+			item.find(".checkbox-before").addClass("dhide");
+			item.find(".checkbox-after").removeClass("dhide");
+			item.find(".setaddr").attr("rel", 'checked');
+		}
+		var Province = datas.Province;
+		var City = datas.City;
+		var Area = datas.Area;
+		var Address = datas.Address;
+		var mainaddr = Province + City + Area + Address;
+		item.find(".username").text(datas.UserName);
+		item.find(".usertel").text(datas.Phone);
+		item.find(".useraddr").text(mainaddr);
+		item.attr('addressId', datas.AddressId);
+		item.attr('UserId', datas.UserId);
+		item.attr('Province', Province);
+		item.attr('City', City);
+		item.attr('Area', Area);
+		item.attr('Address', Address);
+		item.attr('UserName', datas.UserName);
+		item.attr('Phone', datas.Phone);
+		item.attr('IsUse', IsUse);
+		item.find(".setaddr").attr('onclick', "setchecked(this)");
+		item.find(".addr-editbtn").attr('onclick', "editaddr(this)");
+		item.find(".addr-deletebtn").attr('onclick', "deleteaddr(this)");
+		list.append(item);
+	}
+	//获取访问id
+	function getVisit() {
+		var id = '';
+		var furl = "/YNAPIManage/WeChatApi/VisitId";
+		$.ajax({
+			url: Serverurl + furl,
+			type: "get",
+			async: false,
+			dataType: "json",
+			crossDomain: true,
+			xhrFields: {
+				withCredentials: true
+			},
+			success: function(result) {
+				id = result.resultdata
+			},
+			error: function() {}
+		});
+		return id;
+	}
+	//编辑地址
+	function editaddr(dom) {
+		var AddressId = $(dom).closest('.hisaddr-item').attr("addressId");
+		var Province = $(dom.closest('.hisaddr-item')).attr("Province");
+		var City = $(dom).closest('.hisaddr-item').attr("City");
+		var Area = $(dom).closest('.hisaddr-item').attr("Area");
+		var Address = $(dom).closest('.hisaddr-item').attr("Address");
+		var UserName = $(dom).closest('.hisaddr-item').attr("UserName");
+		var Phone = $(dom).closest('.hisaddr-item').attr("Phone");
+		var IsUse = $(dom).closest('.hisaddr-item').attr("IsUse");
+		var visitId = getVisit();
+		var addrdata = {
+			visitId: visitId,
+			entity: {
+				UserName: UserName,
+				Phone: Phone,
+				Province: Province,
+				City: City,
+				Area: Area,
+				Address: Address,
+				AddressId: AddressId,
+				IsUse: IsUse
+			}
+		}
+		var moddatas = JSON.stringify(addrdata);
+		console.log(addrdata);
+		localStorage.setItem("moddatas", moddatas);
+		mui.openWindow({
+			url: 'editaddr.html',
+			id: 'editaddr',
+		});
+	}
+	//删除地址
+	function deleteaddr(dom) {
+		var furl = "/YNAPIManage/WeChatApi/DeleteAddress";
+		var AddressId = $(dom).closest('.hisaddr-item').attr("addressId");
+		var visitId = getVisit();
+		var dletedata = {
+			visitId: visitId,
+			AddressId: AddressId
+		}
+		$.ajax({
+			url: Serverurl + furl,
+			type: "POST",
+			async: false,
+			dataType: "json",
+			data: dletedata,
+			crossDomain: true,
+			xhrFields: {
+				withCredentials: true
+			},
+			success: function(result) {
+				if(result.type == 1) {
+					$(dom).closest('.hisaddr-item').remove();
+					refresh();
+				} else {
+					mui.toast('删除地址失败');
+				}
+			}
+		});
+	}
+
+	//设为默认地址
+	function setchecked(dom) {
+		var furl = "/YNAPIManage/WeChatApi/UpdateAddress";
+		var checkbox_before = $(dom).find(".checkbox-before");
+		var checkbox_after = $(dom).find(".checkbox-after");
+		var AddressId = $(dom).closest('.hisaddr-item').attr("addressId");
+		var Province = $(dom.closest('.hisaddr-item')).attr("Province");
+		var City = $(dom).closest('.hisaddr-item').attr("City");
+		var Area = $(dom).closest('.hisaddr-item').attr("Area");
+		var Address = $(dom).closest('.hisaddr-item').attr("Address");
+		var UserName = $(dom).closest('.hisaddr-item').attr("UserName");
+		var Phone = $(dom).closest('.hisaddr-item').attr("Phone");
+		var IsUse = $(dom).closest('.hisaddr-item').attr("IsUse");
+		$(".checkbox-before").removeClass('dhide');
+		$(".checkbox-after").addClass('dhide');
+		$(checkbox_before).addClass("dhide");
+		$(checkbox_after).removeClass("dhide");
+		if($(checkbox_before).hasClass('dhide')) {
+			IsUse = 0;
+		}
+		var visitId = getVisit();
+		var addrdata = {
+			visitId: visitId,
+			entity: {
+				UserName: UserName,
+				Phone: Phone,
+				Province: Province,
+				City: City,
+				Area: Area,
+				Address: Address,
+				AddressId: AddressId,
+				IsUse: IsUse
+			}
+		}
+
+		$.ajax({
+			url: Serverurl + furl,
+			type: "POST",
+			async: false,
+			dataType: "json",
+			data: addrdata,
+			crossDomain: true,
+			xhrFields: {
+				withCredentials: true
+			},
+			success: function(result) {
+				if(result.type == 1) {
+					refresh();
+				} else {
+					mui.toast('设置失败');
+				}
+			}
+		});
+
+	}
+
+	//打开新增地址
+	$('.goaddr-add').on('click', function() {
+		mui.openWindow({
+			url: 'addaddr.html',
+			id: 'addaddr',
+		});
+	})
+</script>

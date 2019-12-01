@@ -1,0 +1,133 @@
+﻿<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+
+	<head>
+		<title>我的监护人</title>
+		<meta charset="utf-8">
+		<meta name="viewport" content="target-densitydpi=device-dpi, width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+		<link href="common/css/mui.min.css" rel="stylesheet" />
+		<link href="common/css/fonts/font-awesome.min.css" rel="stylesheet" />
+		<link href="common/css/icon.css" rel="stylesheet" />
+		<link href="common/css/ui-base.css" rel="stylesheet" />
+		<link href="common/css/ui-box.css" rel="stylesheet" />
+		<link href="common/css/ui-color.css" rel="stylesheet" />
+		<link href="common/css/common.css" rel="stylesheet" />
+		<link href="common/css/control.css" rel="stylesheet" />
+		<style>
+			/**adduselist style**/
+			
+			.adduse_btn {
+				background: #fff;
+				height: 2.8em
+			}
+			
+			.adduse_img img {
+				width: 1.3em
+			}
+			
+			.use_list {
+				padding-top: .6em
+			}
+			
+			.use_item {
+				background: #fff;
+				padding: .6em;
+				border-bottom: 1px solid #efefef
+			}
+			
+			.use_delete img {
+				width: 3em; height: 3em; border-radius: 3em;
+				margin-right: 1em
+			}
+			
+			.use_edit img {
+				width: 1.4em
+			}
+		</style>
+	</head>
+
+	<body class="bc-text um-vp bc-bg">
+		<div class="ub ub-ver use_list">
+
+		</div>
+		<div class="ub ub-ac ub-pc sc-text footer_line">
+			<span class="ub warmline"></span>
+			<span class="ub ft09">暂无更多监护人</span>
+			<span class="ub warmline"></span>
+		</div>
+		<!--监护人模板-->
+		<div class="usetemp dhide">
+			<div class="ub use_item">
+				<div class="ub ub-ac use_delete">
+					<img class="ub ub-img headimg" src="common/images/logo_p.png" />
+				</div>
+				<div class="ub ub-f1 ub-ver use_center">
+					<div class="ub umar-b  ub-ac use_name Fname">
+						张三
+					</div>
+					<div class="ub ub-ac ft085 sc-text">
+						<span class="marr06">手机号</span>
+						<span class="dphone">000 0000 0000</span>
+					</div>
+				</div>
+				<div class="ub ub-ac use_edit dhide">
+					<img src="common/images/edit_img.png" />
+				</div>
+			</div>
+		</div>
+	</body>
+
+</html>
+<script src="common/js/jquery-2.1.4.min.js"></script>
+<script src="common/js/mui.min.js"></script>
+<script src="Fsuperjs/Fsuper.js"></script>
+<script>
+	$(function() {
+		getuse();
+	});
+
+	//监护人列表
+	function getuse() {
+		var furl = "/YNAPIManage/WeChatApi/CustodyList";
+		$.ajax({
+			url: Serverurl + furl,
+			type: "get",
+			async: false,
+			dataType: "json",
+			crossDomain: true,
+			xhrFields: {
+				withCredentials: true
+			},
+			success: function(result) {
+				if(result.type == 1) {
+					var datas = result.resultdata;
+					var length = datas.length;
+					if(length > 0) {
+						for(var i = 0; i < length; i++) {
+							adduses(datas[i]);
+						}
+					}
+				}
+			}
+		});
+	}
+
+	function adduses(datas) {
+		var list = $(".use_list");
+		var userName = datas.NickName;
+		var mobile = datas.Phone;
+		var userid = datas.UserId;
+		var item = $(".usetemp .use_item").clone();
+
+		item.find(".Fname").text(userName);
+		item.find(".dphone").text(mobile);
+		item.find(".headimg").attr("src", datas.Icon);
+		item.attr('userid', userid);
+		item.attr('Fphone', mobile);
+		list.append(item);
+	}
+
+	//修改监护人
+
+	//删除监护人
+</script>

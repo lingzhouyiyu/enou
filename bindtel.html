@@ -1,0 +1,183 @@
+﻿<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+
+	<head>
+		<title>验证手机</title>
+		<meta charset="utf-8">
+		<meta name="viewport" content="target-densitydpi=device-dpi, width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+		<link href="common/css/mui.min.css" rel="stylesheet" />
+		<link href="common/css/fonts/font-awesome.min.css" rel="stylesheet" />
+		<link href="common/css/icon.css" rel="stylesheet" />
+		<link href="common/css/ui-base.css" rel="stylesheet" />
+		<link href="common/css/ui-box.css" rel="stylesheet" />
+		<link href="common/css/ui-color.css" rel="stylesheet" />
+		<link href="common/css/common.css" rel="stylesheet" />
+		<link href="common/css/control.css" rel="stylesheet" />
+		<link href="maincss/person.css" rel="stylesheet" />
+	</head>
+
+	<body class="bc-text um-vp bc-bg">
+		<div class="ub ub-ac edit_warn">
+			<div class="ub ub-ac editwarn_img">
+				<img class="ub ub-img umar-r" src="common/images/warn_img.png" />
+			</div>
+			<div class="ub sc-text ft085">验证手机号，为您提供更优质的服务！</div>
+		</div>
+		<div class="ub ub-ver edit_box marb05">
+			<div class="ub edit_namebox">
+				<div class="ub ub-ac edit_left sc-text">手机号</div>
+				<div class="ub ub-ac uinput">
+					<input type="text" value="" class="Fphone" placeholder="输入手机号" />
+				</div>
+			</div>
+			<div class="ub edit_telbox">
+				<div class="ub ub-ac edit_left sc-text">验证码</div>
+				<div class="ub ub-f1 ub-ac uinput">
+					<input type="text" value="" class="Fvcode" placeholder="输入验证码" />
+				</div>
+				<div class="ub ub-ac colblue ft09 btncheck">获取验证码</div>
+			</div>
+		</div>
+		<div class="ub btn_box">
+			<div class="ub ub-f1 ub-ac ub-pc main_btn sendbtn">
+				立即验证
+			</div>
+		</div>
+	</body>
+
+</html>
+<script src="common/js/jquery-2.1.4.min.js"></script>
+<script src="common/js/mui.min.js"></script>
+<script src="Fsuperjs/Fsuper.js"></script>
+<script>
+	$(function() {
+		sessionStorage.setItem("sure_refresh", true);
+	});
+	var wait = 60;
+	var cantag = 0;
+	var checkcode;
+	//计时器函数
+	function time(o) {
+		var tso = o;
+		if(wait == 0) {
+			o.innerHTML = "获取验证码";
+			wait = 60;
+			$(o).addClass("colgloden").removeClass("sc-text");
+			$(o).removeClass("disabled");
+		} else {
+			$(o).removeClass("colgloden").addClass("sc-text");
+			o.innerHTML = "重新发送(" + wait + ")";
+			wait--;
+			setTimeout(function() {
+				time(o)
+			}, 1000)
+		}
+	}
+	//获取验证码
+	$(".btncheck").on("click", function() {
+		var Fphone = $(".Fphone").val();
+		var regtel = checktel(Fphone);
+		var o = this;
+		if(Fphone == "") {
+			mui.toast("手机号不能为空");
+			return;
+		}
+		if(regtel === false) {
+			mui.toast("无效的手机号");
+			return;
+		}
+		var furl = "/YNAPIManage/WeChatApi/CheckPhoneNumber?phone=" + Fphone;
+		$.ajax({
+			url: Serverurl + furl,
+			type: "GET",
+			async: false,
+			crossDomain: true,
+			xhrFields: {
+				withCredentials: true
+			},
+			dataType: "json",
+			success: function(result) {
+				if(result.type == 1) {
+					checkcode = result.resultdata.code;
+					$(".btncheck").addClass("disabled");
+					mui.toast("验证码发送成功!");
+					time(o);
+
+				} else {
+					checkcode = '';
+					mui.toast("验证码发送失败!");
+				}
+			},
+			error: function() {
+				mui.toast("服务器出错!");
+			}
+		});
+	})
+
+	//绑定手机号
+	function bindphone() {
+		console.log(checkcode);
+		var Fvcode = $(".Fvcode").val();
+		var Fphone = $(".Fphone").val();
+		var furl = "/YNAPIManage/WeChatApi/BindPhone?phone=" + Fphone;
+		if(Fvcode == "") {
+			mui.toast("验证码不能为空!");
+			return;
+		}
+		if(Fvcode != checkcode) {
+			mui.toast("验证码输入错误!");
+			return;
+		}
+
+		$.ajax({
+			url: Serverurl + furl,
+			type: "post",
+			async: false,
+			dataType: "json",
+			crossDomain: true,
+			xhrFields: {
+				withCredentials: true
+			},
+			success: function(result) {
+				if(result.type == 1) {
+
+					history.back(-1);
+				} else {
+					mui.toast(result.message);
+				}
+			},
+			error: function() {
+				mui.toast("服务器出错!");
+			}
+
+		});
+
+	}
+
+	$(".sendbtn").on("click", function() {
+		$(this).addClass("disclick");
+		bindphone();
+	})
+	
+	function getVisit() {
+        var id = '';
+        var furl = "/YNAPIManage/WeChatApi/VisitId";
+        $.ajax({
+            url: furl,
+            type: "get",
+            async: false,
+            dataType: "json",
+            crossDomain: true,
+            xhrFields: {
+                withCredentials: true
+            },
+            success: function (result) {
+                id = result.resultdata
+            },
+            error: function () {
+
+            }
+        });
+        return id;
+    }
+</script>

@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+
+	<head>
+		<title>编辑收获地址</title>
+		<meta charset="utf-8">
+		<meta name="viewport" content="target-densitydpi=device-dpi, width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+		<link href="common/css/mui.min.css" rel="stylesheet" />
+		<link href="common/css/mui.picker.min.css" rel="stylesheet" />
+		<link href="common/css/fonts/font-awesome.min.css" rel="stylesheet" />
+		<link href="common/css/icon.css" rel="stylesheet" />
+		<link href="common/css/ui-base.css" rel="stylesheet" />
+		<link href="common/css/ui-box.css" rel="stylesheet" />
+		<link href="common/css/ui-color.css" rel="stylesheet" />
+		<link href="common/css/common.css" rel="stylesheet" />
+		<link href="common/css/control.css" rel="stylesheet" />
+		<link href="maincss/addr.css" rel="stylesheet" />
+	</head>
+
+	<body class="bc-text um-vp bc-bg">
+		<div class="ub ub-ac addr-item">
+			<div class="addr-left">
+				收货人
+			</div>
+			<div class="ub ub-f1 uinput ub-ac">
+				<input class="username" type="text" />
+			</div>
+		</div>
+		<div class="ub ub-ac addr-item">
+			<div class="addr-left">
+				联系电话
+			</div>
+			<div class="ub ub-f1 uinput ub-ac">
+				<input class="usertel" type="tel" />
+			</div>
+		</div>
+		<div class="ub ub-ac addr-item addr-choose" id="showCityPicker">
+			<div class="addr-left">
+				所在地区
+			</div>
+			<div class="ub ub-f1 uinput ub-ac ub-pe">
+				<div class="ub cityResult" id="cityResult"></div>
+				<span class="ub fa fa-angle-right ft15 sc-text marl06"></span>
+			</div>
+		</div>
+		<div class="ub ub-ac addr-item">
+			<div class="addr-left">
+				详细地址
+			</div>
+			<div class="ub ub-f1 uinput ub-ac">
+				<input class="address" type="text" placeholder="门牌号、街道" />
+			</div>
+		</div>
+		<div class="ub ub-ac addr-checkbox">
+			<div class="addr-left ub-f1  ">
+				设为默认地址
+			</div>
+			<div class="ub ub-ac ">
+				<div class="ub checkbox">
+					<input id="agree" type="checkbox" name="radio" class="uabs ub-con">
+				</div>
+			</div>
+		</div>
+		<div class="ub sureaddr-btnbox">
+			<div class="ub ub-ac ub-pc ub-f1 sureaddr-btn">
+				保存
+			</div>
+		</div>
+	</body>
+
+</html>
+<script src="common/js/jquery-2.1.4.min.js"></script>
+<script src="common/js/mui.min.js"></script>
+<script src="common/js/mui.picker.min.js"></script>
+<script src="common/js/city.data-3.js"></script>
+<script src="Fsuperjs/Fsuper.js"></script>
+<script>
+	var province, city, areas,AddressId;
+	sessionStorage.setItem("modifyuse_refresh", true);
+	(function($, doc) {
+		$.init();
+		$.ready(function() {
+			var _getParam = function(obj, param) {
+				return obj[param] || '';
+			};
+			var cityPicker = new $.PopPicker({
+				layer: 3
+			});
+			cityPicker.setData(cityData3);
+			var showCityPickerButton = doc.getElementById('showCityPicker');
+			var cityResult = doc.getElementById('cityResult');
+			showCityPickerButton.addEventListener('tap', function(event) {
+				cityPicker.show(function(items) {
+					cityResult.innerText = _getParam(items[0], 'text') + " " + _getParam(items[1], 'text') + " " + _getParam(items[2], 'text');
+					province = _getParam(items[0], 'text');
+					city = _getParam(items[1], 'text');
+					areas = _getParam(items[2], 'text');
+				});
+			}, false);
+		});
+		getaddrinfor();
+	})(mui, document);
+	
+
+	//加载修改地址信息
+	function getaddrinfor() {
+		var moddatas = localStorage.getItem("moddatas");
+		var changedata = JSON.parse(moddatas);
+		var username = $('.username').val(changedata.entity.UserName);
+		var usertel = $('.usertel').val(changedata.entity.Phone);
+		AddressId = changedata.entity.AddressId;
+		province = changedata.entity.Province;
+		city = changedata.entity.City;
+		areas = changedata.entity.Area;
+		var IsUse = changedata.entity.IsUse;
+		var Address = changedata.entity.Address;
+		var mainsddr = province + city + areas;
+		$('.cityResult').text(mainsddr);
+		$('.address').val(Address);
+		if(IsUse == '0' || IsUse == 0){
+			$('#agree').prop("checked",'true');
+		}
+	}
+	//获取访问id
+function getVisit() {
+	var id = '';
+	var furl = "/YNAPIManage/WeChatApi/VisitId";
+	$.ajax({
+		url: Serverurl + furl,
+		type: "get",
+		async: false,
+		dataType: "json",
+		crossDomain: true,
+		xhrFields: {
+			withCredentials: true
+		},
+		success: function(result) {
+			id = result.resultdata
+		},
+		error: function() {
+		}
+	});
+	return id;
+}
+
+	function address() {
+		var furl = "/YNAPIManage/WeChatApi/UpdateAddress";
+		var username = $('.username').val();
+		var usertel = $('.usertel').val();
+		var address = $('.address').val();
+		var cityResult = $('.cityResult').text();
+		var IsUse = 1;
+		if($('#agree').prop("checked")){
+			IsUse = 0;
+		}
+		var visitId = getVisit();
+		var regidcar = checktel(usertel);
+		if(username == '' || username == null) {
+			mui.toast('请填写收货人姓名');
+			return;
+		}
+		if(usertel == '' || usertel == null) {
+			mui.toast('请填写联系电话');
+			return;
+		}
+		if(regidcar === false) {
+			mui.toast('请填写正确的电话号码');
+			return;
+		}
+		if(cityResult == '' || cityResult == null) {
+			mui.toast('请填写所在地区');
+			return;
+		}
+		if(address == '' || address == null) {
+			mui.toast('请填写详细地址');
+			return;
+		}
+		addrdata = {
+			visitId: visitId,
+			entity: {
+				UserName: username,
+				Phone: usertel,
+				Province: province,
+				City: city,
+				Area: areas,
+				Address: address,
+				AddressId: AddressId,
+				IsUse:IsUse
+			}
+		}
+		$.ajax({
+			url: Serverurl + furl,
+			type: "POST",
+			async: false,
+			dataType: "json",
+			data: addrdata,
+			crossDomain: true,
+			xhrFields: {
+				withCredentials: true
+			},
+			success: function(result) {
+				if(result.type == 1) {
+					history.back(-1);
+				}else{
+					mui.toast('修改地址失败');
+				}
+			}
+		});
+	}
+
+	$('.sureaddr-btn').on('click', function() {
+		address();
+	})
+</script>

@@ -1,0 +1,28 @@
+.person_top{ background: #4f88ff url(../common/images/person_bg.jpg) no-repeat; padding:1.2em 0; background-size: 100% 100%; }
+.header_box{border: 2px solid #79dff8; width: 89px; height: 89px;  border-radius: 50%; }
+.logo_img{ width: 80px; height: 80px; border-radius: 50%;  }
+.person_name{ color: #fff; margin-top: 1em; }
+.vip_p,.install_p{ color: #c1e4ff;}
+.vip_img,.install_img{ width: 1em; margin-right: 3px;}
+.p_centerline{color: #c1e4ff; margin: 0 10px; height: 12px; background: #c1e4ff; width: 1px;}
+.p_center{ margin-top: 0.5em;}
+.wrap_top{ background: #fcad59;}
+.person_topnav{ background: #fff; padding: 0.4em 0;}
+.person_topnav img{ width: 1.5em;} 
+.person_list{ margin-top: 0.6em; padding-bottom: 4em;}
+.person_item{ background: #fff; padding:0.6em;}
+.border_b{ border-bottom: 1px solid #efefef;}
+.person_img img{ width: 1.3em; margin-right: 0.8em;}
+.person_navline{ border-right: 1px solid #efefef;}
+
+
+/**edituse**/
+.edit_warn{ padding:2em 0.6em 1.5em 0.6em;}
+.editwarn_img img{ width: 1.1em;}
+.edit_box{ background: #fff; margin: 0 0.6em; border-radius: 5px; border: 1px solid #efefef;}
+.edit_left{ width: 4.2em;}
+.edit_namebox{ padding: 7px 0.5em;border-bottom: 1px solid #efefef;}
+.edit_telbox{ padding: 7px 0.5em;}
+.marb05{ margin-bottom: 0.5em;}
+.btn_box{ padding: 2.5em 1.5em;}
+.main_btn{ background:#028bfd url(../common/images/btn_bg.jpg) repeat-y; height: 2.8em; border-radius: 5px; color: #fff; background-size: 100% 100%;}

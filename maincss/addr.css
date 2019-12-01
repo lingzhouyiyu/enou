@@ -1,0 +1,45 @@
+.addr-item{margin-bottom:1px;background:#fff;padding:.4em .6em}
+.addr-left{width:5em}
+.addr-choose{padding:.8em .6em}
+.addr-checkbox{padding:.8em .6em;background:#fff;margin-top:.5em;margin-bottom:3em}
+.sureaddr-btnbox{padding:1em 1.5em}
+.sureaddr-btn{background:#028bfd url(../common/images/btn_bg.jpg) repeat-y;height:2.8em;border-radius:5px;color:#fff;background-size:100% 100%}
+.addr-list{padding-bottom:3.2em}
+.hisaddr-item{padding:.6em;background:#fff;margin-bottom:.5em}
+.checkbox-after,.checkbox-before{width:1.4em;margin-right:.4em}
+.addr-ctrlbox{border-top:1px solid #f5f5f5;padding-top:.6em}
+.addr-ctrlimg{width:1.2em;margin-right:4px}
+.addr-editbtn{margin-right:1.5em}
+.goaddr-add{background:#028bfd url(../common/images/btn_bg.jpg) repeat-y;height:2.8em;color:#fff;background-size:100% 100%;position:fixed;left:0;bottom:0;width:100%}
+.ctrlL{height:1.8em;width:1.8em;background:#f5f5f5}
+.ctrlR{height:1.8em;width:1.8em;background:#f5f5f5}
+.ctrlN{height:2em;padding:0 .6em}
+.ctrlbox{padding:.5em .6em;margin-bottom:1px;background:#fff}
+.delivebox{padding:.6em;margin-bottom:1px;background:#fff}
+.buyfooter{background:#fff;height:3.2em;position:fixed;left:0;bottom:0;width:100%;box-shadow:0 -2px 3px #e1e1e1;z-index:99}
+.buybtn{height:100%;background:#028bfd;color:#fff}
+.datalist{padding-bottom:3.5em}
+.addrbox{background:#fff;margin-bottom:.5em;padding:.6em}
+.addr-img{margin-right:.2em;width:1.4em}
+.addr-img img{width:1.4em}
+.addr-use{padding-left:1.6em}
+.finetest_item{margin:0}
+.addr-mask{position:fixed;left:0;top:0;width:100%;height:100%;z-index:200;overflow:auto;background:rgba(0,0,0,.4)}
+.content_main{background:#F5F5F5;position:absolute;left:0;bottom:0;height:50%;width:100%;overflow:auto;box-shadow:0 -2px 3px #cdcdcd}
+.content_top{height:2.5em;background:#fff;border-bottom:1px solid #dcdcdc;position:fixed;top:50%;left:0;z-index:200;width:100%}
+.add_img{width:1em}
+.conact_list{overflow:auto;height:auto;padding-top:2.6em}
+.conact_item{border-bottom:1px solid #dcdcdc;padding:.4em .6em;background:#fff}
+.check_img{width:1.2em}
+.edit_img{width:1.2em}
+.addsure_box{position:fixed;left:0;bottom:0;width:100%}
+.adsure_btn{background:#fff;height:2.8em;box-shadow:0 -2px 3px #cdcdcd;z-index:200}
+.contaddr-item{padding:.4em .6em;background:#fff;margin-bottom:1px}
+.checkall-top{ background: #fff; padding: 0.6em; border-bottom: 1px solid #E1E1E1;}
+.shop-img{ width: 1.4em; margin-right: 0.4em;}
+.checkleft-box{ padding-right: 0.5em;}
+.paperbox{ padding-bottom: 3.2em;}
+.noaddr-btn{ background: #fff; padding: 0.6em 0; margin-bottom:.5em;}
+.shopcar-deletet{ padding-left: 1.5em;}
+.goods-top{ border-bottom: 1px solid #F5F5F5; padding-bottom: 0.5em;}
+.goods_bottom{ padding-top: 0.6em;}

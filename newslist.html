@@ -1,0 +1,127 @@
+﻿<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+
+	<head>
+		<title>一诺新闻</title>
+		<meta charset="utf-8">
+		<meta name="viewport" content="target-densitydpi=device-dpi, width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+		<link href="common/css/mui.min.css" rel="stylesheet" />
+		<link href="common/css/fonts/font-awesome.min.css" rel="stylesheet" />
+		<link href="common/css/icon.css" rel="stylesheet" />
+		<link href="common/css/ui-base.css" rel="stylesheet" />
+		<link href="common/css/ui-box.css" rel="stylesheet" />
+		<link href="common/css/ui-color.css" rel="stylesheet" />
+		<link href="common/css/common.css" rel="stylesheet" />
+		<link href="common/css/control.css" rel="stylesheet" />
+		<link href="maincss/newslist.css" rel="stylesheet" />
+	</head>
+
+	<body class="bc-text um-vp bc-bg">
+		<div class="ub ub-ver newslist">
+
+		</div>
+		<div class="ub ub-ac ub-pc sc-text footer_line" style="padding-bottom: 0.6em;">
+			<span class="ub warmline"></span>
+			<span class="ub ft09">暂无更多新闻信息</span>
+			<span class="ub warmline"></span>
+		</div>
+		<!--新闻列表-->
+		<div class="newstemp dhide">
+			<div class="ub ub-ac news_item">
+				<div class="ub news_img">
+					<img class="news_page" src="common/images/free01.jpg" />
+				</div>
+				<div class="ub ub-ver ub-f1 news_right">
+					<div class="ub bc-text txthide Fnewstitle"></div>
+					<div class="ub sc-text ft085 Fnewstxt txthide umar-t umar-b">
+
+					</div>
+					<div class="ub sc-text">
+						<div class="ub ub-f1 Fnewstime ft085">
+							2018-12-09
+						</div>
+						<div class="ub">
+							<div class="ub ub-ac">
+								<img class="ub ub-img track_img" src="common/images/track.png" />
+							</div>
+							<div class="ub ub-ac ub-pc ft085 ub-pc">
+								<span class="Fnewslook">0</span><span>浏览</span>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class='ub ub-ac ub-pc load-wrapper dhide'>
+			<img src='common/images/load.gif'>
+		</div>
+	</body>
+
+</html>
+<script src="common/js/jquery-2.1.4.min.js"></script>
+<script src="common/js/mui.min.js"></script>
+<script src="Fsuperjs/Fsuper.js"></script>
+<script>
+	$(function() {
+		getnewslist();
+	});
+	//新闻列表
+	function getnewslist() {
+		$(".load-wrapper").removeClass('dhide');
+		var furl = "/PublicWeChatApi/GetNewsList";
+		senddata = {
+			name: '',
+			subject: '',
+			grade: '',
+			rows: 30,
+			page: 1
+		}
+		$.ajax({
+			url: Serverurl + furl,
+			type: "get",
+			async: false,
+			dataType: "json",
+			data: senddata,
+			crossDomain: true,
+			xhrFields: {
+				withCredentials: true
+			},
+			success: function(result) {
+				$(".load-wrapper").addClass('dhide');
+				var datas = result.resultdata;
+				var length = datas.length;
+				if(length > 0) {
+					for(var i = 0; i < length; i++) {
+						addnews(datas[i]);
+					}
+				}
+
+			},
+			error: function() {
+				mui.toast("网络错误");
+				$(".load-wrapper").addClass('dhide');
+			}
+
+		});
+	}
+
+	function addnews(data) {
+		var list = $(".newslist");
+		var item = $(".newstemp .news_item").clone();
+		item.attr('onclick', "newsDetail(this)");
+		item.attr("id", data.Id);
+		item.find(".Fnewstitle").text(data.Title);
+		//item.find(".Fnewstime").text(data.Date);
+		item.find(".news_page").attr("src", "common/images/news_bg.jpg");
+		list.append(item);
+	}
+	//新闻点击
+	function newsDetail(dom) {
+		var newsid = $(dom).attr("id");
+		localStorage.setItem("newsid", newsid);
+		mui.openWindow({
+			url: 'newsdetail.html',
+			id: 'newsdetail',
+		});
+	}
+</script>

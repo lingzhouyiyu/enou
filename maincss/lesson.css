@@ -1,0 +1,72 @@
+/*搜索*/
+.search_box{ border: 1px solid #e1e1e1; border-radius: 3em;}
+.ele_search{margin:3px 0;border-radius:3em;background:#fff;}
+.ele_put{background:#fff url(../common/images/ele-seach.png) no-repeat;background-position:.5em;background-size:1em 1em;}
+.ele_img img{width:1em;}
+.subtop{position:fixed;top:0;left:0;z-index:999;width:100%; background: #fff; padding: 0.8em 0.6em 0 0.6em; height: 5.4em; overflow: hidden; border-bottom: 1px solid #efefef;}
+.uinput{padding:0;}
+.uinput input.ulev-ele{padding-left:2.5em;outline:0 none;color:rgba(0,0,0,.4);font-size:.9em;}
+
+.lesson_top{padding: 0.4em 0; margin-top: 6px;}
+.lesson_item{ padding-right: 1em; }
+.filter_img{ width: 1.2em;}
+.lesson_list{ overflow: auto;}
+.filter_btn{ padding-left: 0.4em;}
+.course_list{ padding: 5.8em 0 3.5em 0;}
+.finetest_list{ padding: 5.8em 0 0.6em 0;}
+.course_item{ padding: 0.5em 0.6em; border-bottom: 1px solid #efefef; border-top: 1px solid #efefef;  background: #fff; margin-bottom: 0.4em;}
+.course_img img{ width: 5.8em; height: 3.8em; border-radius: 5px;}
+.course_right{ margin-left: 0.6em;}
+.lesson_topimg{  width: 100%;  background: #fff; }
+.lesson_topimg img{ width: 100%;}
+.lesson_subnav{ background: #fff; border-bottom: 1px solid #EFEFEF; height: 2.8em; box-sizing: border-box;}
+.navline{position:absolute;bottom:0;left:0;width:100%;height:2px;background:#028bfd;color:#028bfd;font-size:1em}
+.curnav{ color: #028bfd;}
+.lesson_infor{ padding: 1em 0.6em 0.6em 0.6em; background: #fff;}
+.track_img{ width: 1.1em; margin-right: 3px;}
+
+.video_list{ }
+.file_list,.testlist{}
+.video_item{ padding: 0.5em 0.6em; border-bottom: 1px solid #efefef; background: #fff;}
+.video_img{height: 3.8em;  width: 5.8em; }
+.video_img img{width: 100%; height: 100%; border-radius: 5px;}
+.video_right{ margin-left: 0.6em;}
+
+.flie_item,.test_item{padding:0.6em 0.6em; border-bottom: 1px solid #efefef; background: #fff;}
+.file_icon{ width: 1em; margin-right: 5px;}
+.test_icon{  width: 1em; margin-right: 5px;}
+.finetest_sign01{background: #ff8a4c; color: #fff; font-size: 0.75em; padding: 1px 2px; border-radius: 3px; margin-right: 3px;}
+.finetest_sign02{background: #fc4f46; color: #fff; font-size: 0.75em; padding: 1px 2px; border-radius: 3px; margin-right: 3px;}
+.finetest_item{ padding: 0.5em 0.6em; border-bottom: 1px solid #efefef; background: #fff; margin-bottom: 0.5em;}
+.finetest_img img{ width: 5.8em; height: 3.8em; border-radius: 5px;}
+.finetest_right{ margin-left: 0.6em;}
+.track_img{ width: 1.1em; margin-right: 3px;}
+
+.testdetail_box{ position: fixed; left: 0; top: 0; width: 100%; background: #fff; z-index: 99;}
+.testdetail_top{ padding: 1em 0.6em 0.5em 0.6em;}
+.testdetail_nav{ border-bottom: 1px solid #EFEFEF; height: 2.6em; }
+
+.flash{ height: auto; padding: 0 0.6 0 0.6em; background: #fff;}
+
+.test_wraptop{ position: fixed; left: 0; top: 0; height: auto; background: #fff; z-index: 999; width: 100%;  }
+.testline{ background: #F5F5F5; height: 0.5em;}
+
+.answer_circle{ width:1.5em; height: 1.5em; border: 1px solid #5D5D5D; border-radius: 50%; margin-right: 0.5em;}
+.test_type{ padding: 0 0.6em 1em 0.6em;}
+.testtitle{ padding: 0 0.6em 1em 0.6em;}
+.answer_item{ padding:0.6em;}
+.curanswer{ background: #f5f5f5;}
+.curcircle{border: 1px solid #028bfd; background: #028bfd; color: #fff;}
+.toanswer{padding: 1.5em 0.6em 1em 0.6em;}
+.filter_box{ position: fixed; left: 0; top: 5.4em; background: rgba(0,0,0,0.1); width: 100%; bottom: 0; z-index: 999; overflow-y:scroll; overflow-x:hidden;}
+.filter_main{ width: 100%; background: #fff; height: auto; overflow: auto; }
+.filter_title{background: #fff; margin-top: 1em; padding: 0 0.6em;}
+.filter_list{ padding-left: 0.6em; background: #fff; margin-top: 0.5em; height: auto; overflow: hidden;}
+.filter_item{ padding: 3px 16px; border: 1px solid #DCDCDC; margin-right: 0.6em; border-radius: 5px; float: left; margin-bottom: 0.6em; font-size: 0.9em;}
+.filter_btnbox{ height: 3em; border-top: 1px solid #EFEFEF; margin-top: 1.5em;}
+.filter_reset{ border-right: 1px solid #EFEFEF;}
+img{ border: 0 none; margin: 0; padding: 0;}
+.curfilter{ background: #028bfd; color: #fff; border-color: #028bfd;}
+.codeput{ border: 1px solid #DCDCDC; }
+.codetxt{ text-align: center;}
+

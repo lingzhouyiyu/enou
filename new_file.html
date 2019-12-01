@@ -1,0 +1,594 @@
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=1200, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=yes" />
+    <title></title>
+
+    <link href="/admin_plugins/bgwx/css/main.css" rel="stylesheet" />
+    <script src="/admin_plugins/jquery-2.1.4.min.js"></script>
+    <script src="/admin_plugins/bgwx/js/js.js"></script>
+    <link href="/admin_plugins/video/video-js.css" rel="stylesheet" />
+    <script src="/admin_plugins/video/video.js"></script>
+    <script>
+        videojs.options.flash.swf = "../admin_plugins/video/video-js.swf";
+    </script>
+    <script type="text/javascript" src="//s.union.360.cn/44496.js"></script>
+    <script type="text/javascript">
+        var _mvq = _mvq || [];
+        _mvq.push(['$setAccount', 'm-248868-0']);
+
+        _mvq.push(['$logConversion']);
+        (function () {
+            var mvl = document.createElement('script');
+            mvl.type = 'text/javascript'; mvl.async = true;
+            mvl.src = ('https:' == document.location.protocol ? 'https://static-ssl.mediav.com/mvl.js' : 'http://static.mediav.com/mvl.js');
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(mvl, s);
+        })();
+
+    </script>   
+</head>
+<body>
+    <!--top start-->
+    <div class="wrap_dhead">
+        <div class="wrap_dhead">
+            <div class="myclear dclear">
+                <a class="dlogo" href="/home/index">
+                    <img src="/admin_plugins/bgwx/img/dlogo.jpg" />
+                </a>
+                <a class="dhead_nav" href="/home/index">
+                    <span class="dhead_bg" style="background: url(/admin_plugins/bgwx/img/dicon.png) no-repeat;"></span>
+                    <span>首页</span>
+
+                </a>
+                <a class="dhead_nav" href="/user/buy">
+                    <span class="dhead_bg " style="background: url(/admin_plugins/bgwx/img/dicon.png) no-repeat; background-position: -32px 0;"></span>
+                    <span>课程购买</span>
+                </a>
+                <a class="dhead_nav" href="/user/personalCenter">
+                    <span class="dhead_bg dhead_bg4" style="background: url(/admin_plugins/bgwx/img/dicon.png) no-repeat; background-position: -92px 0;"></span>
+                    <span>个人中心</span>
+                </a>
+                <a class="dhead_nav" href="/user/personalCenter">
+                    <span class="dhead_bg dhead_bg4" style="background: url(/admin_plugins/bgwx/img/dicon.png) no-repeat; background-position: -131px 0;"></span>
+                    <span>学习中心</span>
+                </a>
+                <a class="dhead_nav dcar" href="/user/payCenter">
+                    <span class="dhead_bg dhead_bg4" style="background: url(/admin_plugins/bgwx/img/dicon.png) no-repeat; background-position: -244px 0;"></span>
+                    <span>购物车</span>
+                    <i id="titlecarimg" class="tip-news pa" style="background: url(/admin_plugins/bgwx/img/icon-1_03.gif) no-repeat;">0</i>
+                </a>
+                <div class="dhead_right">
+                    <a href="/user/personalCenter" class="head" style="background: url() no-repeat;border-radius: 50%;"></a>
+                    <div class="user_info">
+                        <p>欢迎您</p>
+                        <p></p>
+                    </div>
+                </div>
+
+            </div>
+            <!--购物车列表-->
+            <div class="wrap_car myhide">
+                <h4>购物车列表</h4>
+                <div id="carlistsfor">
+
+                </div>
+                <div class="car_count">
+                    <span>共</span>
+                    <span class="numColor" id="totalclassnum">0</span>
+                    <span>件商品</span>
+                    <span>共计</span>
+                    <span class="numColor">￥</span>
+                    <span class="numColor" id="totalclassmoney">0</span>
+                    <span class="numColor">元</span>
+                </div>
+                <a class="carBtn" id="gotopaycenter" onclick="gotopaycenter()" totalid="" href="#">
+                    立即结算
+                </a>
+
+            </div>
+            <span class="signl " style="display: none;"></span>
+        </div>
+    </div>
+    <!--购物车列表模板-->
+    <div id="cartemp" class="cartemp" style="display:none;">
+        <div id="" class="items car_list">
+            <a class="car_img" href="#">
+                <img id="FimgUrl" src="../img/buy_img1.jpg" />
+            </a>
+            <a class="car_detial" href="#" id="Fname">
+                消防工程师消防工程师消防工程师
+            </a>
+            <div class="car_price">
+                <div class="cprice">
+                    <span>￥</span>
+                    <span id="FrealityPrice">1900</span>
+                </div>
+                <a href="javascript:void(0)" id="deleteclass" onclick="">删除</a>
+            </div>
+        </div>
+    </div>
+    <!--video look start-->
+    <div class="wrap_video">
+        <div class="myclear">
+            
+            <div id="videosplay" class="play" style="width:770px;height:470px;">
+                <iframe style="width:770px;height:470px;" src="" name="text" frameborder="no" marginwidth="0" marginheight="0" scrolling="no" allowtransparency="yes" target="_self"></iframe>
+            </div>
+            <div class="play_list" style="overflow: auto; background: #333333;">
+
+
+                <div id="titlesbtn">
+                    <div onclick="menulist(this)" id="parents" class="parents openclass" style="height: 20px; line-height: 20px; font-size: 14px; color: white; cursor: pointer; background: #333333; padding-left: 10px; padding-top:10px;">
+                        <img class="imgess" id="imgess" src="/admin_plugins/bgwx/img/close.png" />
+                        试听视频
+                    </div>
+                    <ul class="play_index_mys" style="overflow:auto;" id="childs">
+
+                            <li>
+                                <a id="22" class="" onclick="changesrc('047ae2b00f','22')" href="javascript:void(0)">建筑防火第五章第一节（二）</a>
+                            </li>
+                            <li>
+                                <a id="24" class="" onclick="changesrc('937e87be45','24')" href="javascript:void(0)">建筑防火第五章第一节（四）</a>
+                            </li>
+                            <li>
+                                <a id="26" class="" onclick="changesrc('c7d8083ea3','26')" href="javascript:void(0)">建筑防火第五章第一节（六）</a>
+                            </li>
+                            <li>
+                                <a id="44" class="" onclick="changesrc('dc4e63362a','44')" href="javascript:void(0)">建筑防火第六章第三节</a>
+                            </li>
+                            <li>
+                                <a id="92" class="" onclick="changesrc('8e2f06795c','92')" href="javascript:void(0)">第四章：系统设计主要参数</a>
+                            </li>
+                            <li>
+                                <a id="91" class="" onclick="changesrc('d77ee3dbf4','91')" href="javascript:void(0)">第四章：系统工作原理</a>
+                            </li>
+                            <li>
+                                <a id="87" class="" onclick="changesrc('feb8dec9c6','87')" href="javascript:void(0)">第三章:室外消火栓</a>
+                            </li>
+                            <li>
+                                <a id="47" class="" onclick="changesrc('3bdc2bbce3','47')" href="javascript:void(0)">建筑防火第六章第六节</a>
+                            </li>
+                        }
+                    </ul>
+
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+    <!--location start-->
+    <div class="wrap_location wrap_per wrap_videos">
+        <div class="myclear">
+            <span>般格网校  </span>
+            <i>&gt;&gt;</i>
+            <span>视频中心  </span>
+        </div>
+    </div>
+    <!--videos list start-->
+    <div class="warp_videoTitle">
+        <div class="myclear">
+            <ul class="list_title">
+                <li class="list_active allClass" style="cursor:pointer" onclick="doublecourse()">全科课程</li>
+                <li class="singleClass" style="cursor:pointer" onclick="onecourse()">单科课程</li>
+            </ul>
+        </div>
+    </div>
+
+    <!--课程模块-->
+    <div id="mycoursetemp" style="display:none;">
+        <div class="myclear mysourceitem" style="cursor:pointer">
+            <div class="video_item">
+                <div class="video_itemL">
+                    <img id="myimg" src="/admin_plugins/bgwx/img/video01.jpg" />
+
+                    <div class="video_detial">
+                        <h3 id="Fname"></h3>
+                        <span>价格&nbsp;&nbsp;</span><span>￥</span><span id="Fprice"></span>
+                        <p>
+                            讲师：
+                            <span id="Fteacher"></span>
+                        </p>
+                    </div>
+                </div>
+                <div class="video_itemR" id="paybtn" onclick="gotobuy()">
+                    <a href="#">立即购买</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="wrap_videoList allClassLis mysourcelist">
+
+    </div>
+
+
+
+
+
+    
+    <!--footer start -->
+    <div class="wrap_footer">
+        <div class="clearFix">
+            <div class="footer">
+                <div class="phone1" style="background: url(/admin_plugins/bgwx/img/phone.png) no-repeat;">
+                    <a href="#">报名热线：400-809-7255</a>
+                </div>
+                <div class="phone3" style="background: url(/admin_plugins/bgwx/img/newphone.png) no-repeat;">
+                    <a href="#">企业电话：0871-65317868</a>
+                </div>
+                <div class="phone2" style="background: url(/admin_plugins/bgwx/img/qq.png) no-repeat;">
+                    <a href="#">企业QQ：400-809-7255</a>
+                </div>
+                <div class="share">
+                    <span>分享到：</span>
+                    <a class="share1" style="background: url(/admin_plugins/bgwx/img/wx.png) no-repeat ; float: right; height: 50px;" href="http://www.jiathis.com/share" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank" title="分享到微信"></a>
+                    <a class="share1" style="background: url(/admin_plugins/bgwx/img/qq.png) no-repeat ; float: right; height: 50px;" href="javascript:void(0);" onclick="window.open('http://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url='+encodeURIComponent(document.location.href));return false;" title="分享到QQ"></a>
+                </div>
+            </div>
+            <div class="myaddress">
+                <a href="#" style="float: left; background: url(/admin_plugins/bgwx/img/address.png) no-repeat; height: 50px;">
+                    <p>总部地址：云南省昆明市高新区M1-4地块（和成国际研发中心）B幢3层311-315号</p>
+                </a>
+            </div>
+            <div class="copys">
+                <a href="/home/index">版权所有  云南般格教育信息咨询有限公司  滇ICP备123456789-01号</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+<script>
+
+    changesrc('047ae2b00f', '22');
+    menuopen($("#titlesbtn"));
+    var Fdouble = "1";
+  //  var myPlayer = videojs("player");
+   // myPlayer.play();
+    $(function () {
+        //单科课程和全部课程切换
+        $(".allClass").click(function () {
+            $(this).addClass("list_active");
+            $(".allClassLis").removeClass("myhide");
+            $(".singleClass").removeClass("list_active");
+            //$(".singleClassLis").addClass("myhide");
+        });
+        $(".singleClass").click(function () {
+            $(this).addClass("list_active");
+            $(".singleClassLis").removeClass("myhide");
+            $(".allClass").removeClass("list_active");
+          //  $(".allClassLis").addClass("myhide");
+        });
+    //    play('http://yfkj-bgwx-zcxfgcs.ufile.ucloud.cn/shiting.flv');
+        getCourseForVideos(Fdouble);
+        insertTocar();
+        //getplaylist();
+    });
+   // alert("");
+    function getplaylist() {
+        $.ajax({
+            url: "/user/getplaylist",
+            type: "POST",
+            data: { Fid: "" },
+            dataType: 'json',
+            success: function (result) {
+                var msg = result.Msg;
+                if (msg == 1) {
+                    $(".play_index").empty();
+                    var length = result.Data.length;
+                    for (var i = 0; i < length; i++) {
+                        addplaylist(result.Data[i]);
+                    }
+                }
+            },
+            error: function (e) {
+
+            }
+        });
+    }
+    //function addplaylist(data) {
+    //    var htmlstr = '<li><a onclick="' + "play('http://yfkj-bgwx-zcxfgcs.ufile.ucloud.cn/shiting.flv')" + '"' + '>' + data.Fname + '</a></li>';
+    //    $(".play_index").append(htmlstr);
+    //}
+
+    function addplaylist(data) {
+        //  alert(data.Fmkmxid);
+        // alert(data.Fkjname);
+        // var htmlstr = '<li><a onclick="' + "play('http://" + data.Fkjname + ".ufile.ucloud.cn/" + data.Fspname + ".flv')" + '"' + '>' + data.Fname + '</a></li>';
+        var htmlstr = '<li><a onclick=' + "play('" + data.Ffileurl + "')" + '>' + data.Fname + '</a></li>';
+        // alert(htmlstr);
+        //  var htmlstr = '<li><a onclick="'+'play("'+'http://' + data.Fkjname + ".ufile.ucloud.cn/" + data.Fspname + '.flv")'+'' + ' class="" href="javascript:void(0)">' + data.Fname + '</a></li>';
+        //  alert(htmlstr);
+        $(".play_index").append(htmlstr);
+        //$(".play_index li").click(function () {
+        //    $(".play_index li a").removeClass("curr_play");
+        //    $(this).find("a").addClass("curr_play");
+        //   // alert("http://" + data.Fkjname + ".ufile.ucloud.cn/" + data.Fspname + ".flv");
+        // play("http://" + data.Fkjname + ".ufile.ucloud.cn/" + data.Fspname+ ".flv");
+        //});
+    }
+
+    //插入播放记录
+    function addHistory(id) {
+
+        var datas = {
+
+            Fmkmxid: id
+
+        };
+        $.ajax({
+            url: "/user/addHistory",
+            type: "POST",
+            dataType: 'json',
+            data: datas,
+            success: function (result) {
+               // alert(result.Msg);
+            },
+            error: function (e) {
+                // appcan.window.openToast("服务器出错", "1000");
+            }
+        });
+    }
+    //视频点击事件
+    //function play(file, dom, Fmkmxid) {
+
+    //    $(".play_index li a").removeClass("curr_play");
+    //    $(dom).addClass("curr_play");
+    //    myPlayer.src = file;
+    //    myPlayer.load();
+    //}
+    function play(file, dom, Fmkmxid) {
+      //  var html = '<embed src="http://yuntv.letv.com/bcloud.swf" allowFullScreen="true" quality="high"  width="770" height="470" align="middle" allowScriptAccess="always" flashvars="uu=siwfgrwoss&vu=' + file + '&pu=6F98EC4A33&auto_play=1&gpcflag=1&width=770&height=470" type="application/x-shockwave-flash"></embed>';
+        //console.log(html);
+        var html = ' <embed src="http://yuntv.letv.com/bcloud.swf" allowfullscreen="true" quality="high" width="770" height="470" align="middle" allowscriptaccess="always" flashvars="uu=siwfgrwoss&vu=4b3867d8a5&pu=6F98EC4A33&auto_play=1&gpcflag=1&width=770&height=470" type="application/x-shockwave-flash" />';
+        // var html = ' <embed src="http://yuntv.letv.com/bcloud.swf" allowfullscreen="true" quality="high" width="770" height="470" align="middle" allowscriptaccess="always" flashvars="uu=siwfgrwoss&vu=490289b7ca&pu=6F98EC4A33&auto_play=1&gpcflag=1&width=770&height=470" type="application/x-shockwave-flash" />';
+       // var html = ' <embed src="http://yuntv.letv.com/bcloud.swf" allowfullscreen="true" quality="high" width="423" height="270" align="middle" allowscriptaccess="always" flashvars="uu=siwfgrwoss&vu=4a61163282&pu=6F98EC4A33&auto_play=0&gpcflag=1&width=770&height=470" type="application/x-shockwave-flash"/>';
+        $("#videosplay").html(html);
+        //addHistory(Fmkmxid);
+        //// alert(file);
+        //$(".play_index li a").removeClass("curr_play");
+        //$(dom).addClass("curr_play");
+        //myPlayer.src({ type: "video/flv", src: file });
+
+        //// myPlayer.src(file);
+        //myPlayer.play();
+
+    }
+   
+    function onecourse() {
+        Fdouble = "0";
+        $(".mysourcelist").empty();
+        getCourseForVideos(Fdouble);
+    }
+    function doublecourse() {
+        Fdouble = "1";
+        $(".mysourcelist").empty();
+        getCourseForVideos(Fdouble);
+    }
+    function getCourseForVideos(Fdoubles) {
+
+        var datas = {
+
+            Fdouble: Fdoubles
+
+        };
+        $.ajax({
+            url: "/user/getCourseForVideos",
+            type: "POST",
+            dataType: 'json',
+            data: datas,
+            success: function (result) {
+                var msg = result.Msg;
+                if (msg == 1) {
+                    var length = result.Data.length;
+                    for (var i = 0; i < length; i++) {
+                        additem(result.Data[i]);
+                    }
+                }
+            },
+            error: function (e) {
+
+            }
+        });
+    }
+
+    function additem(data) {
+
+        var list = $(".mysourcelist");
+        var clonedom = $("#mycoursetemp").clone();
+        var itemdom = clonedom.find(".mysourceitem");
+        itemdom.find("#myimg").attr("src", data.FimgUrl);
+        itemdom.attr("id", "item" + data.Fid);
+        itemdom.find("#Fname").text(data.Fname);
+        itemdom.find("#Fteacher").text(data.Fteacher);
+        itemdom.find("#Fprice").text(data.Fprice);
+        itemdom.find("#paybtn").attr("onclick", "gotobuy('" + data.Fid + "')");
+        list.append(itemdom);
+    }
+
+    function gotobuy(Fmkids) {
+     
+        if ('' == '') {
+            window.location.href = "/home/index";
+        } else {
+            $.ajax({
+                type: "post",
+                dataType: "json",
+                data: { Fuserid: '', Fmkid: Fmkids },
+                url: "/user/getHasPay",
+                async: false,
+                success: function (result) {
+                    
+                    // var msg = result.Msg;
+                    if (result == '1') {
+                        //  href = "/user/payCenter?Fid=7"
+                        window.open("/user/payCenter?Fid=" + Fmkids + '&Fcar=Fcar');
+
+                    } else if (result == '0') {
+                        alert("您已经购买过该课程！");
+                        return;
+                        // window.location.href = '/home/index';
+                    }
+                },
+                error: function () {
+                    alert("出错了");
+                }
+
+            })
+        }
+        // alert(Fid);
+        // window.location.href = "/user/payCenter?Fid=" + Fid;
+       // window.open("/user/payCenter?Fid=" + Fid);
+    }
+    function changesrc(file, hisid) {
+
+        $(".play_index_mys li a").removeClass("curr_play");
+        $("#" + hisid).addClass("curr_play");
+        //addHistory(hisid);
+        //  alert(file);
+        var newsrc = 'http://yuntv.letv.com/bcloud.html?uu=siwfgrwoss&vu=' + file + '&pu=6F98EC4A33&auto_play=1&gpcflag=1&width=770&height=470';
+        // var html = '<embed src="http://yuntv.letv.com/bcloud.swf" allowFullScreen="true" quality="high"  width="770" height="470" align="middle" allowScriptAccess="always" flashvars="uu=siwfgrwoss&vu=' + file + '&pu=6F98EC4A33&auto_play=1&gpcflag=1&width=770&height=470" type="application/x-shockwave-flash"></embed>';
+        //console.log(html);
+        $("#videosplay iframe").attr("src", newsrc);
+        //addHistory(Fmkmxid);
+        //// alert(file);
+        //$(".play_index li a").removeClass("curr_play");
+        //$(dom).addClass("curr_play");
+        //myPlayer.src({ type: "video/flv", src: file });
+
+        //// myPlayer.src(file);
+        //myPlayer.play();
+
+
+    }
+    function menuopen(dom) {
+        //  alert("nnn");
+        // $(".play_index li a").removeClass("curr_play");
+        $("#titlesbtn  .parents").addClass("openclass");
+        $("#titlesbtn .imgess").attr("src", "/admin_plugins/bgwx/img/close.png");
+    }
+    function menulist(dom) {
+        if ($(dom).hasClass("openclass")) {
+            //  alert("cc");
+            $(dom).parent().find("#childs").hide();
+            $(dom).removeClass("openclass");
+            $(dom).find("img").attr("src", "/admin_plugins/bgwx/img/open.png");
+            $(dom).addClass("closeclass");
+        } else if ($(dom).hasClass("closeclass")) {
+            // alert("dd");
+            $(dom).parent().find("#childs").show();
+            $(dom).removeClass("closeclass");
+            $(dom).find("img").attr("src", "/admin_plugins/bgwx/img/close.png");
+            $(dom).addClass("openclass");
+        }
+    }
+    //删除购购物车
+    function deletecar(Fuid, Ftcid) {
+        var datas = {
+            Ftcid: Ftcid,
+            Fuserid: Fuid
+        };
+        $.ajax({
+            url: "/user/deletecar",
+            type: "POST",
+            dataType: 'json',
+            data: datas,
+            success: function (result) {
+                //Fids = "";
+                //totalclassmoney = 0;
+                //$("#carlistsfor").empty();
+                //insertTocar();
+                //alert("删除成功!");
+            },
+
+            error: function (e) {
+
+            }
+        });
+    }
+    //购物车
+    function insertTocar() {
+        $.ajax({
+            url: "/user/getDataForCar",
+            type: "POST",
+            dataType: 'json',
+            success: function (result) {
+                //  alert(result.Msg);
+                var length = result.Data.length;
+                $("#totalclassnum").text(length);
+                if (length > 0) {
+                    $("#titlecarimg").removeClass("myhide");
+                    $("#titlecarimg").text(length);
+                }
+                else {
+                    $("#titlecarimg").addClass("myhide");
+                    $("#titlecarimg").text("0");
+                }
+                for (var i = 0; i < length; i++) {
+
+                    additemssvv(result.Data[i]);
+
+                }
+                $("#totalclassmoney").text(totalclassmoney);
+                $("#gotopaycenter").attr("totalid", Fids);
+                //  alert(Fids);
+            },
+
+            error: function (e) {
+
+            }
+        });
+    }
+    var Fids = "";
+    var totalclassmoney = 0;
+    function additemssvv(data) {
+        Fids = data.Tcid + "," + Fids;
+        totalclassmoney = totalclassmoney + Number(data.FrealityPrice);
+        // alert(data.Fmkname);
+        var list = $("#carlistsfor");
+        var clonedom = $(".cartemp").clone();
+        var itemdom = clonedom.find(".items");
+        // itemdom.find("#FtotalClass").text(data.FtotalClass);
+        itemdom.find("#Fname").text(data.Fname);
+        itemdom.find("#FrealityPrice").text(data.FrealityPrice);
+        itemdom.find("#FimgUrl").attr("src",data.FimgUrl);
+        itemdom.find("#deleteclass").attr("onclick", "deleteclass('" + data.Fuserid + "','" + data.Tcid + "')");
+        list.append(itemdom);
+    }
+
+
+    function deleteclass(Fuid, Ftcid) {
+        var datas = {
+            Ftcid: Ftcid,
+            Fuserid: Fuid
+        };
+        $.ajax({
+            url: "/user/deleteclass",
+            type: "POST",
+            dataType: 'json',
+            data: datas,
+            success: function (result) {
+                Fids = "";
+                totalclassmoney = 0;
+                $("#carlistsfor").empty();
+                insertTocar();
+                alert("删除成功!");
+            },
+
+            error: function (e) {
+
+            }
+        });
+    }
+    //立即计算
+    function gotopaycenter() {
+        // var nFids =  $("#gotopaycenter").attr("totalid");
+        // alert(nFids);
+        gotobuy($("#gotopaycenter").attr("totalid"));
+    }
+</script>

@@ -1,0 +1,128 @@
+﻿<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+
+	<head>
+		<title>一诺教育 课程</title>
+		<meta charset="utf-8">
+		<meta name="viewport" content="target-densitydpi=device-dpi, width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+		<link href="common/css/mui.min.css" rel="stylesheet" />
+		<link href="common/css/fonts/font-awesome.min.css" rel="stylesheet" />
+		<link href="common/css/icon.css" rel="stylesheet" />
+		<link href="common/css/ui-base.css" rel="stylesheet" />
+		<link href="common/css/ui-box.css" rel="stylesheet" />
+		<link href="common/css/ui-color.css" rel="stylesheet" />
+		<link href="common/css/common.css" rel="stylesheet" />
+		<link href="common/css/control.css" rel="stylesheet" />
+		<link href="maincss/lesson.css" rel="stylesheet" />
+	</head>
+
+	<body class="bc-text um-vp bc-bg">
+		<div class="ub ub-ver subtop">
+			<div class="ub ub-f1 search_box">
+				<div class="ub ub-ac ub-f1 ele_search uinput ele_put">
+					<input class="ulev-ele" type="text" placeholder="搜索" />
+				</div>
+			</div>
+			<div class="ub lesson_top">
+				<div class="ub ub-f1 lesson_list">
+					<div class="ub ub-ac col999 lesson_item">
+						数学
+					</div>
+					<div class="ub ub-ac col999 lesson_item">
+						英语
+					</div>
+					<div class="ub ub-ac col999 lesson_item">
+						数学
+					</div>
+					<div class="ub ub-ac col999 lesson_item">
+						英语
+					</div>
+				</div>
+				<div class="ub ub-ac filter_btn">
+					<img class="ub filter_img ub-img" src="common/images/filter.png" />
+				</div>
+			</div>
+		</div>
+		<div class="ub ub-ver course_list">
+			<div class="ub ub-f1 course_item">
+				<div class="ub course_img">
+					<img src="common/images/free01.jpg" />
+				</div>
+				<div class="ub ub-ver ub-f1 course_right">
+					<div class="ub bc-text txthide">2018年高考真题解析2018年高考真题解析</div>
+					<div class="ub sc-text ft085 umar-t umar-b">
+						<span>数学</span>
+						<span>|</span>
+						<span>3</span><span>课时</span>
+					</div>
+					<div class="ub sc-text">
+						<div class="ub ub-f1 ft085">
+							<span>100</span><span>人已观看</span>
+						</div>
+						<div class="ub colred">免费</div>
+					</div>
+				</div>
+			</div>
+			<div class="ub ub-f1 course_item">
+				<div class="ub course_img">
+					<img src="common/images/free01.jpg" />
+				</div>
+				<div class="ub ub-ver ub-f1 course_right">
+					<div class="ub bc-text txthide">2018年高考真题解析2018年高考真题解析</div>
+					<div class="ub sc-text ft085 umar-t umar-b">
+						<span>数学</span>
+						<span>|</span>
+						<span>3</span><span>课时</span>
+					</div>
+					<div class="ub sc-text">
+						<div class="ub ub-f1 ft085">
+							<span>100</span><span>人已观看</span>
+						</div>
+						<div class="ub colred">免费</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="ub filter_box dhide">
+			
+		</div>
+		<!--脚部-->
+		<div class="ub footer">
+			<div class="ub ub-ver ub-ac ub-pc ub-f1 ub-fh" onclick="goindex()">
+				<div class="ub footer_img">
+					<img src="common/images/foot01.png" />
+					<img class="dhide" src="common/images/foot01_active.png" />
+				</div>
+				<div class="ub ft085 col999">首页</div>
+			</div>
+			<div class="ub ub-ver ub-ac ub-pc ub-f1 ub-fh" onclick="gocourse()">
+				<div class="ub footer_img">
+					<img class="dhide" src="common/images/foot02.png" />
+					<img src="common/images/foot02_active.png" />
+				</div>
+				<div class="ub ft085 colblue">课程</div>
+			</div>
+			<div class="ub ub-ver ub-ac ub-pc ub-f1 ub-fh" onclick="goperson()">
+				<div class="ub footer_img">
+					<img src="common/images/foot03.png" />
+					<img class="dhide" src="common/images/foot03_active.png" />
+				</div>
+				<div class="ub ft085 col999">个人</div>
+			</div>
+		</div>
+	</body>
+
+</html>
+<script src="common/js/jquery-2.1.4.min.js"></script>
+<script src="common/js/mui.min.js"></script>
+<script src="Fsuperjs/Fsuper.js"></script>
+<script>
+	$(function() {
+
+	});
+	$(".course_item").click(function(){
+		mui.openWindow({
+			url: 'lessondetail.html'
+		});
+	})
+</script>

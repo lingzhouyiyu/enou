@@ -1,0 +1,354 @@
+﻿<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+
+	<head>
+		<title>考卷购买</title>
+		<meta charset="utf-8">
+		<meta name="viewport" content="target-densitydpi=device-dpi, width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+		<link href="common/css/mui.min.css" rel="stylesheet" />
+		<link href="common/css/fonts/font-awesome.min.css" rel="stylesheet" />
+		<link href="common/css/swiper.min.css" rel="stylesheet" />
+		<link href="common/css/icon.css" rel="stylesheet" />
+		<link href="common/css/ui-base.css" rel="stylesheet" />
+		<link href="common/css/ui-box.css" rel="stylesheet" />
+		<link href="common/css/ui-color.css" rel="stylesheet" />
+		<link href="common/css/common.css" rel="stylesheet" />
+		<link href="common/css/control.css" rel="stylesheet" />
+		<link href="maincss/lesson.css" rel="stylesheet" />
+		<style>
+			.ctrlL{height:2em;width:2em;background:#f5f5f5}
+.ctrlR{height:2em;width:2em;background:#f5f5f5}
+.ctrlN{height:2em;padding:0 .6em}
+.ctrlbox{padding:.5em .6em;margin-bottom:1px;background:#fff}
+.delivebox{padding:.6em;margin-bottom:1px;background:#fff}
+.buyfooter{background:#fff;height:3.2em;position:fixed;left:0;bottom:0;width:100%;box-shadow:0 -2px 3px #e1e1e1;z-index:999}
+.buybtn{height:100%;background:#028bfd;color:#fff}
+.datalist{padding-bottom:3.5em}
+.finetest_name{line-height:28px}
+.paper-txt{padding:.6em;background:#fff; overflow: auto;}
+.paper-infor{background:#fff;padding:.6em .6em .4em .6em}
+.title-line{width:3px;height:16px;background:#028bfd;margin-right:5px}
+.tel-img{width:1.6em}
+.paper-txt img{ width: 100% !important;}
+.paper-txt table{ width: 100%;}
+		</style>
+	</head>
+
+	<body class="bc-text um-vp bc-bg">
+		<div class="ub ub-ver test_wraptop">
+			<div class="lesson_topimg">
+				<img class="subject_img" src="common/images/default.jpg" />
+			</div>
+			<div class="ub ub-ver lesson_infor">
+				<div class="ub ub-ac marb06">
+					<span class="leseeon_sign finetest_class dhide">数学</span>
+					<span class="finetest_name">2019年衡水中学第一次月考统考卷</span>
+				</div>
+				<div class="ub">
+					<div class="ub sc-text ub-f1">
+						<div class="ub ub-f1">
+							<div class="ub ub-ac">
+								<img class="ub ub-img track_img" src="common/images/deliver.png" />
+							</div>
+							<div class="ub ub-ac ub-pc ft085 ub-pc">
+								<span class="testlook">免运费</span>
+							</div>
+						</div>
+						<div class="ub ub-f1 ub-ac ub-pc">
+							<span class="SalesVolume ft085">0</span><span class="ft085">人购买</span>
+						</div>
+					</div>
+					<div class="ub ub-f1 ub-pe colred">
+						<span>￥</span>
+						<span class="ft25 price">0</span>
+					</div>
+				</div>
+			</div>
+			<div class="ub testline"></div>
+		</div>
+		<!--视频列表-->
+		<div class="ub ub-f1 ub-ver datalist paperbox">
+			<div class="ub ub-ac paper-infor">
+				<div class="ub title-line"></div>
+				<div class="ub ub-ac">
+					考卷信息
+				</div>
+			</div>
+			<div class="ub ub-ac ub-f1 ub-ver paper-txt">
+
+			</div>
+		</div>
+
+		<div class="ub ub-ac buyfooter">
+			<a href="tel:13466208508" class="ub ub-ac ub-pc ub-ver ub-f1">
+				<div class="ub ub-ac">
+					<img class="ub tel-img" src="common/images/tel-bg.png" />
+				</div>
+				<div class="ub sc-text ft085">咨询</div>
+			</a>
+			<div class="ub ub-ac ub-pc ub-f1 goshopcar" style="height: 100%; border-left: 1px solid #E1E1E1;">
+				<div class="ub ub-ac  ub-ver">
+					<div class="ub ub-ac">
+					<img class="ub tel-img" src="common/images/shopcar02.png" />
+				</div>
+				<div class="ub sc-text ft085">购物车</div>
+				</div>
+				<div class="ub colgloden">
+					<span>(</span><span class="curnum">0</span><span>)</span>
+				</div>
+			</div>
+			<div class="ub ub-f1 ub-pc ub-ac buybtn">加入购物车</div>
+		</div>
+	</body>
+
+</html>
+<script src="common/js/jquery-2.1.4.min.js"></script>
+<script src="common/js/swiper.min.js"></script>
+<script src="common/js/mui.min.js"></script>
+<script src="Fsuperjs/Fsuper.js"></script>
+<script>
+	var examId,Price,curnum,ShopCartGoodsId;
+	var adduse_refresh = sessionStorage.getItem("shopcar-refresh");
+	$(function() {
+		var top_hight = $('.test_wraptop').height();
+		$('.datalist').css('padding-top', top_hight);
+		var u = navigator.userAgent;
+		var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/);
+		if(adduse_refresh) {
+			sessionStorage.removeItem("shopcar-refresh");
+			window.location.reload();
+		}
+		if(isiOS) {
+			iosrefresh();
+		}
+//		getexam();
+//		getgoodsnum();
+	});
+
+	function getexam() {
+		examId = localStorage.getItem("examId");
+		var finetest_name = localStorage.getItem("finetest_name");
+		var SalesVolume = localStorage.getItem("SalesVolume");
+		Price = localStorage.getItem("Price");
+		Price = parseFloat(Price);
+		var subject_img = localStorage.getItem("subject_img");
+		var Details = localStorage.getItem("Details");
+		$('.finetest_name').text(finetest_name);
+		$('.price').text(Price);
+		//$('.subject_img').attr('src',subject_img);
+		$('.SalesVolume').text(SalesVolume);
+		$('.SalesVolume').text(SalesVolume);
+		$('.paper-txt').html(Details);
+	}
+	//获取访问id
+function getVisit() {
+	var id = '';
+	var furl = "/YNAPIManage/WeChatApi/VisitId";
+	$.ajax({
+		url: Serverurl + furl,
+		type: "get",
+		async: false,
+		dataType: "json",
+		crossDomain: true,
+		xhrFields: {
+			withCredentials: true
+		},
+		success: function(result) {
+			id = result.resultdata
+		},
+		error: function() {
+		}
+	});
+	return id;
+}
+
+//创建购物车
+function createshopcar() {
+	var visitId = getVisit();
+	var furl = "/YNAPIManage/WeChatApi/CreateShopCart?visitId=" + visitId;
+	$.ajax({
+		url: Serverurl + furl,
+		type: "POST",
+		async: false,
+		dataType: "json",
+		crossDomain: true,
+		xhrFields: {
+			withCredentials: true
+		},
+		success: function(result) {
+			if(result.type == 1) {
+				getshopcarid();
+			} else {
+				mui.toast('创建购物车失败');
+				history.back(-1);
+			}
+		},
+		error: function() {
+		}
+	});
+
+}
+//获取购物车标识
+function getshopcarid() {
+	var shopCartId;
+	var furl = "/YNAPIManage/WeChatApi/GetShopCartId";
+	$.ajax({
+		url: Serverurl +  furl,
+		type: "GET",
+		async: false,
+		dataType: "json",
+		crossDomain: true,
+		xhrFields: {
+			withCredentials: true
+		},
+		success: function(result) {
+			if(result.type == 1) {
+				shopCartId = result.resultdata;
+			} else {
+				//mui.toast('获取数据失败');
+				//return;
+			}
+		},
+		error: function(){
+			//mui.toast("网络错误")
+		}
+
+	});
+	return shopCartId;
+}
+
+//加入购物车
+function insertgoods(entydata) {
+	var visitId = getVisit();
+	var cartId = getshopcarid();
+	var furl = "/YNAPIManage/WeChatApi/InsertGoods";
+	var goodsdata = entydata;
+	var postdata = {
+		visitId: visitId,
+		cartId: cartId,
+		entity:entydata
+	}
+	$.ajax({
+		url: Serverurl + furl,
+		type: "POST",
+		async: false,
+		dataType: "json",
+		data: postdata,
+		crossDomain: true,
+		xhrFields: {
+			withCredentials: true
+		},
+		success: function(result) {
+			if(result.type == 1) {
+				mui.toast('加入购物车成功');
+			} else {
+				mui.toast('加入购物车失败');
+			}
+		},
+		error: function() {
+
+		}
+	});
+}
+
+//获取当前购物车数量
+function getgoodsnum(){
+	var cartId = getshopcarid();
+	var furl = "/YNAPIManage/WeChatApi/GetShopCartGoods";
+	var postdata = {
+		shopCartId:cartId,
+		goodsId:examId
+	}
+	$.ajax({
+		url: Serverurl + furl,
+		type: "GET",
+		async: false,
+		dataType: "json",
+		data: postdata,
+		crossDomain: true,
+		xhrFields: {
+			withCredentials: true
+		},
+		success: function(result) {
+			if(result.type == 1) {
+				curnum = result.resultdata.GoodsNumber;
+				ShopCartGoodsId = result.resultdata.Id;
+				$('.curnum').text(curnum);
+			} else {
+				$('.curnum').text(0);
+			}
+		},
+		error: function() {
+
+		}
+	});
+}
+
+	//点击加入购物车
+	$('.buybtn').on('click', function() {
+		if(curnum == 0 || curnum == null){
+			var entydata = {
+			GoodsId: examId,
+			GoodsNumber:1,
+			Price:Price
+		}
+		insertgoods(entydata);
+		window.location.reload();
+			
+		}else{
+			curnum = curnum + 1;
+			changegoods();
+			window.location.reload();
+		}
+		
+		
+	});
+	
+	//修改购物车数量
+	function changegoods() {
+		var visitId = getVisit();
+		var cartId = getshopcarid();
+		var furl = "/YNAPIManage/WeChatApi/UpdateGoods";
+		var entydata = {
+			ShopCartGoodsId: ShopCartGoodsId,
+			GoodsNumber: curnum,
+			Price: Price,
+			GoodsId: examId
+		}
+		var postdata = {
+			visitId: visitId,
+			cartId: cartId,
+			entity: entydata
+		};
+		$.ajax({
+			url: Serverurl + furl,
+			type: "POST",
+			async: false,
+			dataType: "json",
+			data: postdata,
+			crossDomain: true,
+			xhrFields: {
+				withCredentials: true
+			},
+			success: function(result) {
+				if(result.type == 1) {
+				mui.toast('加入购物车成功');
+			} else {
+				mui.toast('加入购物车失败');
+			}
+			},
+			error: function() {
+
+			}
+		});
+	}
+	//打开购物车
+	$('.goshopcar').on('click', function() {
+		mui.openWindow({
+			url: 'shopcar.html',
+			id: 'shopcar',
+		});
+	});
+	
+	
+</script>

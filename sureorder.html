@@ -1,0 +1,428 @@
+﻿<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+
+	<head>
+		<title>确认订单</title>
+		<meta charset="utf-8">
+		<meta name="viewport" content="target-densitydpi=device-dpi, width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+		<link href="common/css/mui.min.css" rel="stylesheet" />
+		<link href="common/css/fonts/font-awesome.min.css" rel="stylesheet" />
+		<link href="common/css/swiper.min.css" rel="stylesheet" />
+		<link href="common/css/icon.css" rel="stylesheet" />
+		<link href="common/css/ui-base.css" rel="stylesheet" />
+		<link href="common/css/ui-box.css" rel="stylesheet" />
+		<link href="common/css/ui-color.css" rel="stylesheet" />
+		<link href="common/css/common.css" rel="stylesheet" />
+		<link href="common/css/control.css" rel="stylesheet" />
+		<link href="maincss/lesson.css" rel="stylesheet" />
+		<link href="maincss/addr.css" rel="stylesheet" />
+	</head>
+
+	<body class="bc-text um-vp bc-bg">
+		<div class="ub ub-ver">
+			<div class="ub ub-f1 addrbox addr-btn defaultuse">
+				<div class="ub ub-ver ub-f1">
+					<div class="ub ub-ac marb06 addr-use">
+						<div class="ub ub-f1">
+							<span>收货人：</span><span class="defaultname"></span>
+						</div>
+						<div class="ub defaulttel"></div>
+					</div>
+					<div class="ub ub-ac">
+						<div class="ub ub-ac addr-img">
+							<img class="ub" src="common/images/addr-img.png" />
+
+						</div>
+						<div class="ub ub-f1 ft085">
+							<span>收货地址：</span><span class="defaultaddr"></span>
+						</div>
+					</div>
+				</div>
+				<div class="ub ub-ac ub-pc">
+					<span class="fa fa-angle-right ft15 sc-text marl06"></span>
+				</div>
+			</div>
+			<div class="ub ub-ac ub-pc noaddr-btn dhide">
+				<div class="ub ub-ac">
+					<img class="ub ub-img add_img umar-r" src="common/images/add_img.png" />
+				</div>
+				<div class="ub ub-ac colblue">添加收获信息</div>
+			</div>
+			<div class="ub ub-ver ub-ac bg-white goods-list ub-f1 marb06">
+
+			</div>
+			<div class="ub ub-ver" id="videolist">
+				<div class="ub ub-ac delivebox">
+					<div class="ub ub-ac ub-f1">
+						配送方式
+					</div>
+					<div class="ub ub-ac">
+						<span class="marr1 colgloden ft09">快递  免邮</span>
+						<span class="ub ub-f1 ub-pe fa ft15 colc8 fa-angle-right"></span>
+					</div>
+				</div>
+				<div class="ub ub-ac delivebox">
+					<div class="ub ub-ac ub-f1">
+						发货时间
+					</div>
+					<div class="ub ub-ac">
+						<span class="marr1 ft09">按进度计划发货</span>
+						<span class="ub ub-f1 ub-pe fa ft15 colc8 fa-angle-right"></span>
+					</div>
+				</div>
+				<a href="tel:13466208508" class="ub ub-ac delivebox">
+					<div class="ub ub-ac ub-f1">
+						联系客服
+					</div>
+					<div class="ub ub-ac">
+						<span class="marr1"></span>
+						<span class="ub ub-f1 ub-pe fa ft15 colc8 fa-angle-right"></span>
+					</div>
+				</a>
+			</div>
+		</div>
+		<div class="ub ub-ver addr-mask dhide">
+			<div class="ub ub-ac ub-pc content_top colblue">
+				<div class="ub ub-ac ub-pc">
+					<img class="ub ub-ac ub-img add_img umar-r" src="common/images/add_img.png" />
+				</div>
+				<div class="ub ub-ac">新增地址</div>
+			</div>
+			<div class="ub ub-ver content_main dbcontact">
+				<div class="ub ub-ver conact_list">
+
+				</div>
+			</div>
+			<div class="ub ub-ac ub-pc ub-f1 addsure_box dhide">
+				<div class="ub ub-f1 ub-ac ub-pc adsure_btn">
+					<div class="ub ub-ac ub-pc colblue">确定</div>
+				</div>
+			</div>
+		</div>
+		<div class="ub ub-ac buyfooter">
+			<div class="ub ub-pc ub-f1">
+				<span>合计：</span><span class="totalnum">2</span>
+				<span class="marr1">件</span>
+				<span class="colgloden">￥</span><span class="colgloden ft125 countmoey">0</span>
+			</div>
+			<div class="ub ub-f1 ub-pc ub-ac buybtn">立即支付</div>
+		</div>
+		<div class="goodstemp dhide">
+			<div class="ub ub-f1 finetest_item">
+				<div class="ub ub-ac  finetest_img">
+					<img class="subject_img" src="common/images/default.jpg" />
+				</div>
+				<div class="ub ub-ver ub-pc ub-f1 finetest_right">
+					<div class="ub bc-text umar-b Fname"></div>
+					<div class="ub ub-ac">
+						<div class="ub ub-ac colgloden">
+							<span>￥</span>
+							<span class="Fprice">0.00</span>
+						</div>
+						<div class="ub ub-ac ub-f1 ub-pe">
+							<span>x</span>
+							<span class="Fnumber">0</span>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="addrtemp dhide">
+			<div class="ub ub-ver contaddr-item">
+				<div class="ub ub-ac umar-b">
+					<div class="ub ub-ac username">
+
+					</div>
+					<div class="ub ub-ac ub-f1 ub-pe usertel">
+
+					</div>
+				</div>
+				<div class="ub ub-ac marb06 useraddr">
+
+				</div>
+			</div>
+		</div>
+	</body>
+
+</html>
+<script src="common/js/jquery-2.1.4.min.js"></script>
+<script src="common/js/swiper.min.js"></script>
+<script src="common/js/mui.min.js"></script>
+<script src="Fsuperjs/Fsuper.js"></script>
+<script>
+	$(function() {
+		var adduse_refresh = sessionStorage.getItem("addaddr-refresh");
+		var u = navigator.userAgent;
+		var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/);
+		if(adduse_refresh) {
+			sessionStorage.removeItem("addaddr-refresh");
+			window.location.reload();
+		}
+		if(isiOS) {
+			iosrefresh();
+		}
+		iosrefresh();
+		loadorder();
+		loadaddr();
+	});
+	//加载地址
+	function loadaddr() {
+		var furl = "/YNAPIManage/WeChatApi/GetLogisticsAddress";
+		$.ajax({
+			url: Serverurl + furl,
+			type: "GET",
+			async: false,
+			dataType: "json",
+			crossDomain: true,
+			xhrFields: {
+				withCredentials: true
+			},
+			success: function(result) {
+				if(result.type == 1) {
+					var datas = result.resultdata;
+					var length = datas.length;
+					if(length > 0) {
+						for(var i = 0; i < length; i++) {
+							var mainaddr = datas[0].Province + datas[0].City + datas[0].Area + datas[0].Address;
+							$('.defaultname').text(datas[0].UserName);
+							$('.defaulttel').text(datas[0].Phone);
+							$('.defaultaddr').text(mainaddr);
+							$('.defaultuse').attr('addressId', datas[0].AddressId);
+							addaddr(datas[i]);
+						}
+					} else {
+						$('.defaultuse').addClass('dhide');
+						$('.noaddr-btn').removeClass('dhide');
+					}
+				} else {
+					$('.defaultuse').addClass('dhide');
+					$('.noaddr-btn').removeClass('dhide');
+				}
+			}
+		});
+	}
+
+	function addaddr(datas) {
+		var list = $(".conact_list");
+		var item = $(".addrtemp .contaddr-item").clone();
+		var IsUse = datas.IsUse;
+		var Province = datas.Province;
+		var City = datas.City;
+		var Area = datas.Area;
+		var Address = datas.Address;
+		var mainaddr = Province + City + Area + Address;
+		item.find(".username").text(datas.UserName);
+		item.find(".usertel").text(datas.Phone);
+		item.find(".useraddr").text(mainaddr);
+		item.attr('addressId', datas.AddressId);
+		item.attr('UserId', datas.UserId);
+		item.attr('Province', Province);
+		item.attr('City', City);
+		item.attr('Area', Area);
+		item.attr('Address', Address);
+		item.attr('UserName', datas.UserName);
+		item.attr('Phone', datas.Phone);
+		item.attr('IsUse', IsUse);
+		item.attr('mainaddr', mainaddr);
+		item.attr('onclick', "checkuse(this)");
+		list.append(item);
+		if(IsUse == 0 || IsUse == '0') {
+			$('.defaultname').text(datas.UserName);
+			$('.defaulttel').text(datas.Phone);
+			$('.defaultaddr').text(mainaddr);
+			$('.defaultuse').attr('addressId', datas.AddressId);
+		}
+	}
+
+	function checkuse(dom) {
+		var UserName = $(dom).attr('UserName');
+		var Phone = $(dom).attr('Phone');
+		var mainaddr = $(dom).attr('mainaddr');
+		var addressId = $(dom).attr('addressId');
+		$('.defaultname').text(UserName);
+		$('.defaulttel').text(Phone);
+		$('.defaultaddr').text(mainaddr);
+		$('.defaultuse').attr('addressId', addressId);
+	}
+
+	var orderCode = localStorage.getItem("orderCode");
+	//加载订单详情
+	function loadorder() {
+		var furl = "/YNAPIManage/WeChatApi/WeChatGetOrder?orderCode=" + orderCode;
+		$.ajax({
+			url: Serverurl + furl,
+			type: "GET",
+			async: false,
+			dataType: "json",
+			crossDomain: true,
+			xhrFields: {
+				withCredentials: true
+			},
+			success: function(result) {
+				if(result.type == 1) {
+					var GoodsNumber = result.resultdata.GoodsNumber;
+					var Price = result.resultdata.Price;
+					var GoodsList = result.resultdata.GoodsList;
+					$('.totalnum').text(GoodsNumber);
+					$('.countmoey').text(Price);
+					var length = GoodsList.length;
+					if(length > 0) {
+						for(var i = 0; i < length; i++) {
+							additem(GoodsList[i]);
+						}
+					}
+				} else {
+					mui.toast(result.message);
+				}
+			},
+			error: function() {
+
+			}
+		});
+	}
+
+	function additem(datas) {
+		var list = $(".goods-list");
+		var item = $(".goodstemp .finetest_item").clone();
+		var headimg = datas.HeadIcon;
+		item.find(".Fname").text(datas.GoodsName);
+		item.find(".Fprice").text(datas.GoodsPrice);
+		item.find(".Fnumber").text(datas.GoodsNumber);
+		item.attr('OrderGoodsId', datas.OrderGoodsId);
+		item.attr('OrderId', datas.OrderId);
+		item.attr('ShopCartId', datas.ShopCartId);
+		if(headimg != null && headimg != '') {
+			item.find(".subject_img").attr('src', headimg);
+		}
+		list.append(item);
+	}
+
+	$(".addr-btn").on("click", function() {
+		$(".addr-mask").removeClass("dhide").addClass("pt-page-moveFromBottom");
+		$(".addr-mask").removeClass("pt-page-moveToBottom");
+	});
+	$(".addr-mask").on("click", function() {
+		$('.addr-mask').addClass("pt-page-moveToBottom").removeClass("pt-page-moveFromBottom");
+	});
+
+	//打开新增地址
+	$('.noaddr-btn,.content_top').on('click', function() {
+		mui.openWindow({
+			url: 'addaddr.html',
+			id: 'addaddr',
+		});
+	});
+
+	//获取访问id
+	function getVisit() {
+		var id = '';
+		var furl = "/YNAPIManage/WeChatApi/VisitId";
+		$.ajax({
+			url: Serverurl + furl,
+			type: "get",
+			async: false,
+			dataType: "json",
+			crossDomain: true,
+			xhrFields: {
+				withCredentials: true
+			},
+			success: function(result) {
+				id = result.resultdata
+			},
+			error: function() {}
+		});
+		return id;
+	}
+	//提交订单
+	function sureorder() {
+		var furl = "/YNAPIManage/WeChatApi/WeChatOrder";
+		var visitId = getVisit();
+		var addressId = $('.defaultuse').attr('addressId');
+		var postdata = {
+			visitId: visitId,
+			addressId: addressId,
+			orderCode: orderCode
+		};
+		$.ajax({
+			url: Serverurl + furl,
+			type: "POST",
+			async: false,
+			dataType: "json",
+			data: postdata,
+			crossDomain: true,
+			xhrFields: {
+				withCredentials: true
+			},
+			success: function(result) {
+				if(result.type == 1) {
+					var appId = result.resultdata.appId;
+					var nonceStr = result.resultdata.nonceStr;
+					var package = result.resultdata.package;
+					var paySing = result.resultdata.paySing;
+					var timeStamp = result.resultdata.timeStamp;
+					WeixinJSBridge.invoke('getBrandWCPayRequest', {
+						"appId": appId,
+						"timeStamp": timeStamp,
+						"nonceStr": nonceStr,
+						"package": package,
+						"signType": "MD5",
+						"paySign": paySing,
+					}, function(res) {
+						if(res.err_msg == "get_brand_wcpay_request:ok") {
+							mui.alert('支付成功！', '系统提示', function() {
+								mui.openWindow({
+									url: 'orderlist.html',
+									id: 'orderlist',
+								});
+							});
+						} else if(res.err_msg == "get_brand_wcpay_request:cancel") {
+							cancelorder();
+						} else {
+							alert(JSON.stringify(res));
+						}
+						return;
+					});
+				} else {
+					mui.toast(result.message);
+				}
+			},
+			error: function() {
+
+			}
+		});
+	}
+	//取消订单
+	function cancelorder() {
+		var visitId = getVisit();
+		var furl = "/YNAPIManage/WeChatApi/WeChatCancel";
+		var postdata = {
+			visitId: visitId,
+			orderCode: orderCode
+		}
+		$.ajax({
+			url: Serverurl + furl,
+			type: "POST",
+			async: false,
+			dataType: "json",
+			data: postdata,
+			crossDomain: true,
+			xhrFields: {
+				withCredentials: true
+			},
+			success: function(result) {
+				if(result.type == 1) {
+
+				} else {
+					mui.toast(result.message);
+				}
+			},
+			error: function() {
+
+			}
+		});
+	}
+
+	$('.buybtn').on('click', function() {
+		sureorder();
+	})
+</script>

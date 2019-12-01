@@ -1,0 +1,269 @@
+﻿<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+
+	<head>
+		<title>订单详情</title>
+		<meta charset="utf-8">
+		<meta name="viewport" content="target-densitydpi=device-dpi, width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+		<link href="common/css/mui.min.css" rel="stylesheet" />
+		<link href="common/css/fonts/font-awesome.min.css" rel="stylesheet" />
+		<link href="common/css/icon.css" rel="stylesheet" />
+		<link href="common/css/ui-base.css" rel="stylesheet" />
+		<link href="common/css/ui-box.css" rel="stylesheet" />
+		<link href="common/css/ui-color.css" rel="stylesheet" />
+		<link href="common/css/common.css" rel="stylesheet" />
+		<link href="common/css/control.css" rel="stylesheet" />
+		<link href="maincss/lesson.css" rel="stylesheet" />
+		<style>
+			.finetest_list {
+				padding-top: 0
+			}
+			
+			.finetest_item {
+				margin-bottom: 1px
+			}
+			
+			.shop-img {
+				width: 1.4em;
+				margin-right: .4em
+			}
+			
+			.order-top {
+				padding-bottom: .5em;
+				border-bottom: 1px solid #E1E1E1;
+				margin-bottom: .5em
+			}
+			
+			.refundbox {
+				background: #fff;
+				margin-bottom: .6em;
+				padding: .6em
+			}
+			
+			.refund-btn {
+				padding: 0 .7em;
+				height: 2em;
+				border: 1px solid #969696;
+				color: #969696;
+				border-radius: 5px;
+				font-size: .9em
+			}
+			
+			.refund-main {
+				background: #fff;
+				padding: .6em .6em 0 .6em;
+				margin-top: .6em
+			}
+			
+			.refund-item {
+				padding-bottom: .6em
+			}
+			
+			.refund-title {
+				margin-bottom: .6em
+			}
+		</style>
+	</head>
+
+	<body class="bc-text um-vp bc-bg">
+		<div class="ub ub-ver finetest_item">
+			<div class="ub ub-ac order-top">
+				<div class="ub ub-ac ub-f1">
+					<div class="ub ub-ac">
+						<img class="ub ub-img shop-img" src="common/images/order-bg.png" />
+					</div>
+					<div class="ub ub-ac ordercode"></div>
+				</div>
+				<!--<div class="ub ub-ac colgloden order-status">待发货</div>-->
+			</div>
+			<div class="ub ub-ac">
+				<div class="ub finetest_img">
+					<img class="subject_img" src="common/images/default.jpg" />
+				</div>
+				<div class="ub ub-ver ub-pc ub-f1 finetest_right">
+					<div class="ub bc-text">
+						<span>下单时间：</span><span class="order-time"></span>
+					</div>
+					<div class="ub ub-ac umar-t">
+						<div class="ub ub-ac ub-f1 colred order-contral">
+							<span>￥</span><span class="order-price">0</span>
+						</div>
+
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="ub ub-f1 ub-pe refundbox">
+			<div class="ub ub-ac ub-pc refund-btn">
+				申请退款
+			</div>
+		</div>
+		<div class="ub ub-ver refund-main">
+			<div class="ub ub-ac refund-title">退款详情</div>
+			<div class="ub ub-ac refund-item">
+				<span>退款时间：</span><span class="refund-time"></span>
+			</div>
+			<div class="ub ub-ac refund-item">
+				<span>退款金额：</span><span class="refund-price">0</span>元
+			</div>
+			<div class="ub ub-ac refund-item">
+				<span>审核状态：</span><span class="refund-status01 colgreen"></span>
+			</div>
+			<div class="ub ub-ac refund-item">
+				<span>退款状态：</span><span class="refund-status02 colred"></span>
+			</div>
+		</div>
+
+	</body>
+
+</html>
+<script src="common/js/jquery-2.1.4.min.js"></script>
+<script src="common/js/mui.min.js"></script>
+<script src="Fsuperjs/Fsuper.js"></script>
+<script>
+	$(function() {
+		getorderinfor();
+		refundstatus();
+		checkrefund();
+	});
+
+	var curcode, curprice, isrefund;
+	//获取访问id
+	function getVisit() {
+		var id = '';
+		var furl = "/YNAPIManage/WeChatApi/VisitId";
+		$.ajax({
+			url: furl,
+			type: "get",
+			async: false,
+			dataType: "json",
+			crossDomain: true,
+			xhrFields: {
+				withCredentials: true
+			},
+			success: function(result) {
+				id = result.resultdata
+			},
+			error: function() {}
+		});
+		return id;
+	}
+
+	function getorderinfor() {
+		curcode = localStorage.getItem("curcode");
+		var curtime = localStorage.getItem("curtime");
+		var curstate = localStorage.getItem("curstate");
+		curprice = localStorage.getItem("curprice");
+		$(".ordercode").text(curcode);
+		$(".order-time").text(curtime);
+		$(".order-status").text(curstate);
+		$(".order-price").text(curprice);
+	}
+	//查询是否可退款
+	function checkrefund() {
+		var furl = "/YNAPIManage/WeChatApi/IsRefund?code=" + curcode;
+		isrefund = false;
+		$.ajax({
+			url: furl,
+			type: "GET",
+			async: false,
+			dataType: "json",
+			crossDomain: true,
+			xhrFields: {
+				withCredentials: true
+			},
+			success: function(result) {
+				if(result.type == 1) {
+					isrefund = result.resultdata;
+					if(isrefund == true) {
+						$(".refundbox").removeClass('dhide');
+					}else{
+						$(".refundbox").addClass('dhide');
+					}
+
+				} else {
+					isrefund = false;
+				}
+			},
+			error: function() {
+				//mui.toast("网络错误")
+			}
+		});
+	}
+
+	$('.refund-btn').on('click', function() {
+		refund();
+	})
+	//退款
+	function refund() {
+		var furl = "/YNAPIManage/WeChatApi/CreateRefundOrder";
+		var visitId = getVisit();
+		var postdata = {
+			visitId: visitId,
+			code: curcode,
+			price: curprice
+		}
+		var btnArray = ['否', '是'];
+		mui.confirm('确定退款？', '系统提示', btnArray, function(e) {
+			if(e.index == 1) {
+				$.ajax({
+					url: furl,
+					type: "POST",
+					async: false,
+					dataType: "json",
+					data: postdata,
+					crossDomain: true,
+					xhrFields: {
+						withCredentials: true
+					},
+					success: function(result) {
+						if(result.type == 1) {
+							mui.toast(result.message);
+							$(".refundbox").addClass('dhide');
+							refundstatus();
+						} else {
+							mui.toast(result.message);
+						}
+					},
+					error: function() {
+						//mui.toast("网络错误")
+					}
+				});
+			} else {
+				return;
+			}
+		})
+	}
+
+	//获取退款状态
+	function refundstatus() {
+		var furl = "/YNAPIManage/WeChatApi/GetRefundOrderInfo?code=" + curcode;
+		$.ajax({
+			url:furl,
+			type: "GET",
+			async: false,
+			dataType: "json",
+			crossDomain: true,
+			xhrFields: {
+				withCredentials: true
+			},
+			success: function(result) {
+				if(result.type == 1) {
+					$('.refund-time').text(result.resultdata.CreateTime);
+					$('.refund-price').text(result.resultdata.Price);
+					$('.refund-status01').text(result.resultdata.AnState);
+					$('.refund-status02').text(result.resultdata.CancelState);
+
+				} else {
+					$('.refund-time').text('无');
+					$('.refund-price').text('0');
+					$('.refund-status01').text('无');
+					$('.refund-status02').text('无');
+				}
+			},
+			error: function() {
+				//mui.toast("网络错误")
+			}
+		});
+	}
+</script>

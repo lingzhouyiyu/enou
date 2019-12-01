@@ -1,0 +1,324 @@
+﻿<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+
+	<head>
+		<title>精品考卷</title>
+		<meta charset="utf-8">
+		<meta name="viewport" content="target-densitydpi=device-dpi, width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+		<link href="common/css/mui.min.css" rel="stylesheet" />
+		<link href="common/css/fonts/font-awesome.min.css" rel="stylesheet" />
+		<link href="common/css/icon.css" rel="stylesheet" />
+		<link href="common/css/ui-base.css" rel="stylesheet" />
+		<link href="common/css/ui-box.css" rel="stylesheet" />
+		<link href="common/css/ui-color.css" rel="stylesheet" />
+		<link href="common/css/common.css" rel="stylesheet" />
+		<link href="common/css/control.css" rel="stylesheet" />
+		<link href="maincss/lesson.css" rel="stylesheet" />
+	</head>
+
+	<body class="bc-text um-vp bc-bg">
+		<div class="ub ub-ver subtop">
+			<div class="ub ub-f1 search_box">
+				<div class="ub ub-ac ub-f1 ele_search uinput ele_put">
+					<input class="ulev-ele" type="text" placeholder="搜索" />
+				</div>
+			</div>
+			<div class="ub lesson_top">
+				<div class="ub ub-f1 lesson_list">
+					<div class="ub ub-ac col999 allsubject lesson_item colblue">全部</div>
+				</div>
+				<a href="#filterpage" class="ub ub-ac filter_btn" id="filter">
+					<img class="ub filter_img ub-img" src="common/images/filter.png" />
+				</a>
+			</div>
+		</div>
+		<div id="pullrefresh" class="mui-content mui-scroll-wrapper" style="margin-top: 5.8em;">
+			<div class="mui-scroll">
+				<div class="ub ub-ver finetest_list">
+
+				</div>
+			</div>
+		</div>
+
+		<div class="ub ub-ac ub-pc sc-text footer_line" style="padding-bottom: 0.6em;">
+			<span class="ub warmline"></span>
+			<span class="ub ft09">暂无更多考卷信息</span>
+			<span class="ub warmline"></span>
+		</div>
+		<!--筛选-->
+		<div class="filter_box" style="display: none;" id="filterpage">
+			<div class="ub ub-ver filter_main">
+				<div class="ub ub-ver fliter_mainitem">
+					<div class="ub sc-text filter_title">
+						科目
+					</div>
+					<div class="filter_list">
+						<div class="ub ub-ac ub-pc filter_item curfilter">全部</div>
+
+					</div>
+				</div>
+				<div class="ub ub-ver fliter_mainitem">
+					<div class="ub sc-text filter_title">
+						年级
+					</div>
+					<div class="filter_list">
+						<div class="ub ub-ac ub-pc filter_item curfilter">全部</div>
+
+					</div>
+				</div>
+				<div class="ub ub-ver fliter_mainitem">
+					<div class="ub sc-text filter_title">
+						价格
+					</div>
+					<div class="filter_list">
+						<div class="ub ub-ac ub-pc filter_item curfilter">全部</div>
+
+					</div>
+				</div>
+				<div class="ub filter_btnbox">
+					<div class="ub ub-f1 ub-fh ub-ac ub-pc filter_reset col999">重置</div>
+					<div class="ub ub-f1 ub-fh ub-ac ub-pc filter_finish colblue">完成</div>
+				</div>
+			</div>
+		</div>
+		<!--精品考卷-->
+		<div class="finetest_temp dhide">
+			<div class="ub finetest_item">
+				<div class="ub finetest_img">
+					<img src="common/images/free01.jpg" />
+				</div>
+				<div class="ub ub-ver ub-f1 finetest_right">
+					<div class="ub bc-text txthide finetest_name"></div>
+					<div class="ub ub-ac sc-text ft085 umar-t umar-b">
+						<span class="finetest_class">数学</span>
+						<span>|</span>
+						<span class="resolve_type">0</span>
+					</div>
+					<div class="ub sc-text">
+						<div class="ub ub-f1 ft085 finetest_time">
+							2018-12-09
+						</div>
+						<div class="ub colred ft085 IsNeedValid dhide">
+
+						</div>
+						<div class="ub dhide">
+							<div class="ub ub-ac">
+								<img class="ub ub-img track_img" src="common/images/track.png" />
+							</div>
+							<div class="ub ub-ac ub-pc ft085 ub-pc">
+								<span class="finetest_look">0</span><span>浏览</span>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!--科目-->
+		<div class="subject_temp dhide">
+			<div class="ub ub-ac col999 lesson_item">
+
+			</div>
+		</div>
+	</body>
+
+</html>
+<script src="common/js/jquery-2.1.4.min.js"></script>
+<script src="common/js/mui.min.js"></script>
+<script src="Fsuperjs/Fsuper.js"></script>
+<script>
+	$(function() {
+		hashback();
+		getresolvelist();
+		getsubjetlist();
+	});
+
+	//下拉刷新具体业务实现
+	var curpage = 0;
+	var isup = 0; 
+	var checksubject = '';
+	mui.init({
+		pullRefresh: {
+			container: '#pullrefresh',
+			down: {
+				callback: pulldownRefresh
+			},
+			up: {
+				contentrefresh: '正在加载...',
+				contentnomore: '我是有底线的',
+				callback: pullupRefresh
+			}
+		}
+	});
+
+	function pullupRefresh() {
+		setTimeout(function() {
+			isup = 1;
+			getresolvelist(isup);
+
+		}, 500);
+	}
+
+	function pulldownRefresh() {
+		setTimeout(function() {
+			$(".finetest_list").empty();
+			isup = 0;
+			getresolvelist(isup);
+			mui('#pullrefresh').pullRefresh().endPulldownToRefresh();
+		}, 500);
+
+	}
+
+	//获取精品考卷列表
+
+	function getresolvelist(isup) {
+		var furl = "/YNAPIManage/WeChatApi/GetExamList";
+		if(isup == 1) {
+			curpage++;
+		} else {
+			curpage = 1;
+		}
+		var senddata = {
+			name: '',
+			subject: checksubject,
+			grade: '',
+			rows: 10,
+			page: curpage
+		}
+		$.ajax({
+			url: Serverurl + furl,
+			type: "get",
+			async: false,
+			dataType: "json",
+			data: senddata,
+			crossDomain: true,
+			xhrFields: {
+				withCredentials: true
+			},
+			success: function(result) {
+				var length = 0;
+
+				if(result.type == 1) {
+
+					var datas = result.resultdata;
+					length = datas.rows.length;
+					if(length > 0) {
+						for(var i = 0; i < length; i++) {
+							addresolve(datas.rows[i]);
+						}
+					}
+				} else {
+					length = 0;
+				}
+				if(length <= 0 || length == null) {
+					mui('#pullrefresh').pullRefresh().endPullupToRefresh(true);
+				}
+			},
+			error: function() {
+				mui.toast("网络错误")
+			}
+
+		});
+	}
+
+	function addresolve(data) {
+		var list = $(".finetest_list");
+		var item = $(".finetest_temp .finetest_item").clone();
+		item.attr('onclick', "resolveDetail(this)");
+		item.attr("id", data.Id);
+		item.find(".finetest_name").text(data.Name);
+		item.find(".finetest_class").text(data.Subject);
+		item.find(".finetest_time").text();
+		item.find(".finetest_look").text();
+		item.find(".IsNeedValid").text(data.IsNeedValid);
+		item.find(".resolve_type").text(data.ExamModel);
+		list.append(item);
+	}
+	//考卷列表点击
+	function resolveDetail(dom) {
+		var examId = $(dom).attr("id");
+		var UseTime = $(dom).find(".depart_time").text();
+		var finetest_name = $(dom).find(".finetest_name").text();
+		var finetest_class = $(dom).find(".finetest_class").text();
+		var resolve_type = $(dom).find(".resolve_type").text();
+		var IsNeedValid = $(dom).find(".IsNeedValid").text();
+		localStorage.setItem("finetest_name", finetest_name);
+		localStorage.setItem("finetest_class", finetest_class);
+		localStorage.setItem("resolve_type", resolve_type);
+		localStorage.setItem("IsNeedValid", IsNeedValid);
+		localStorage.setItem("examId", examId);
+		mui.openWindow({
+			url: 'testdetail.html',
+			id: 'testdetail',
+		});
+	}
+
+	//获取科目列表
+	function getsubjetlist() {
+		var furl = "/YNAPIManage/WeChatApi/GetSubjectInfo";
+		$.ajax({
+			url: Serverurl + furl,
+			type: "get",
+			async: false,
+			dataType: "json",
+			crossDomain: true,
+			xhrFields: {
+				withCredentials: true
+			},
+			success: function(result) {
+				var datas = result.resultdata;
+				var length = datas.length;
+				if(length > 0) {
+					for(var i = 0; i < length; i++) {
+						addsubjet(datas[i]);
+					}
+				}
+			},
+			error: function() {
+				mui.toast("网络错误")
+			}
+
+		});
+	}
+
+	function addsubjet(data) {
+		var list = $(".lesson_list");
+		var item = $(".subject_temp .lesson_item").clone();
+		item.attr('onclick', 'subjectclick(this)');
+		item.text(data.ItemName);
+		item.attr('checkval', data.ItemName)
+		list.append(item);
+	}
+
+	function subjectclick(dom) {
+		checksubject = $(dom).attr("checkval");
+		$('.lesson_list .lesson_item').removeClass('colblue');
+		$(dom).addClass('colblue');
+		$(".finetest_list").empty();
+		isup = 0;
+		getresolvelist(isup);
+	}
+
+	//头部全部点击
+	$('.allsubject').on('click', function() {
+		$('.lesson_list .lesson_item').removeClass('colblue');
+		$(this).addClass('colblue');
+		checksubject = '';
+		$(".finetest_list").empty();
+		getresolvelist();
+	})
+
+	$(".filter_btn").on("click", function() {
+
+		hashswitch($(this));
+	})
+	$(".filter_box").on("click", function() {
+
+		dbgoback($(this));
+	})
+	//筛选
+	$(".filter_item").on("click", function() {
+		$(this).parents(".filter_list").find(".filter_item").removeClass("curfilter");
+		$(this).addClass("curfilter");
+		event.stopPropagation();
+	})
+</script>

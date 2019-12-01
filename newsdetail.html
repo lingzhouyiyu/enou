@@ -1,0 +1,81 @@
+﻿<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+
+	<head>
+		<title>新闻详情</title>
+		<meta charset="utf-8">
+		<meta name="viewport" content="target-densitydpi=device-dpi, width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+		<link href="common/css/mui.min.css" rel="stylesheet" />
+		<link href="common/css/fonts/font-awesome.min.css" rel="stylesheet" />
+		<link href="common/css/icon.css" rel="stylesheet" />
+		<link href="common/css/ui-base.css" rel="stylesheet" />
+		<link href="common/css/ui-box.css" rel="stylesheet" />
+		<link href="common/css/ui-color.css" rel="stylesheet" />
+		<link href="common/css/common.css" rel="stylesheet" />
+		<link href="common/css/control.css" rel="stylesheet" />
+		<style>
+			.news_title{padding: 1em 0.6em;}
+			.news_content{padding: 0 0.6em 0.6em 0.6em; color: #5D5D5D;}
+			.news_content p{ padding: 0 !important; margin: 0.5em 0 !important; color: #5D5D5D !important;  font-size: 1em;}
+			.news_content img{ width: 100% !important; margin: 0 !important; padding: 0 !important;}
+			.news-code{ padding: 1em 0.6em;}
+		</style>
+	</head>
+
+	<body class="bc-text um-vp bc-white">
+		<div class="ub ub-ac ub-pc ftb news_title">
+			
+		</div>
+		<div class="news_content">
+			
+		</div>
+		<div class="ub ub-ac ub-pc news-code">
+			<img style="width: 100%;" src="common/images/wxcode.gif" />
+		</div>
+		<div class="ub ub-ac ub-pc ft125 marb06">
+			联系我们
+		</div>
+		<div class="ub ub-ac ub-pc umar-b">
+			<span>万老师：</span>
+		<a href="tel:13466208508">13466208508</a>
+		</div>
+		<div class="ub ub-ac ub-pc">
+			<span>唐老师：</span>
+		<a href="tel:18849885200">18849885200</a>
+		</div>
+	</body>
+
+</html>
+<script src="common/js/jquery-2.1.4.min.js"></script>
+<script src="common/js/mui.min.js"></script>
+<script src="Fsuperjs/Fsuper.js"></script>
+<script>
+	$(function() {
+		getnewsdetail();
+	});
+	//新闻列表
+	function getnewsdetail() {
+		var newsid = localStorage.getItem("newsid");
+		var furl = "/PublicWeChatApi/GetNew?id=" + newsid;
+		$.ajax({
+			url: Serverurl + furl,
+			type: "get",
+			async: false,
+			dataType: "json",
+			crossDomain: true,
+			xhrFields: {
+				withCredentials: true
+			},
+			success: function(result) {
+				$('.news_title').text(result.resultdata.Title);
+				$('.news_content').html(result.resultdata.Content);
+				$('.news_content img').css('width','100%')
+				console.log(result.resultdata.Content);
+			},
+			error: function() {
+				mui.toast("网络错误")
+			}
+
+		});
+	}
+</script>

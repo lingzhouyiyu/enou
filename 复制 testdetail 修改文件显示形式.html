@@ -1,0 +1,348 @@
+﻿<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+
+	<head>
+		<title>考卷解析</title>
+		<meta charset="utf-8">
+		<meta name="viewport" content="target-densitydpi=device-dpi, width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+		<link href="common/css/mui.min.css" rel="stylesheet" />
+		<link href="common/css/fonts/font-awesome.min.css" rel="stylesheet" />
+		<link href="common/css/icon.css" rel="stylesheet" />
+		<link href="common/css/ui-base.css" rel="stylesheet" />
+		<link href="common/css/ui-box.css" rel="stylesheet" />
+		<link href="common/css/ui-color.css" rel="stylesheet" />
+		<link href="common/css/common.css" rel="stylesheet" />
+		<link href="common/css/control.css" rel="stylesheet" />
+		<link href="maincss/lesson.css" rel="stylesheet" />
+	</head>
+
+	<body class="bc-text um-vp bc-bg">
+		<div class="lesson_topimg">
+			<img src="common/images/free02.jpg" />
+		</div>
+		<div class="ub lesson_subnav">
+			<div class="ub ub-f1 ub-fh ub-ac ub-pc switch_navitem curnav" id="video">
+				<div class="ub">视频解析</div>
+				<div class="ub navline"></div>
+			</div>
+			<div class="ub ub-f1 ub-fh ub-ac ub-pc switch_navitem" id="file">
+				<div class="ub">文档说明</div>
+			</div>
+		</div>
+		<div class="ub ub-ver lesson_infor">
+			<div class="ub ub-ac marb06">
+				<span class="leseeon_sign finetest_class"></span>
+				<span class="finetest_name"></span>
+			</div>
+			<div class="ub">
+				<div class="ub sc-text ub-f1">
+					<div class="ub ub-ac">
+						<img class="ub ub-img track_img" src="common/images/track.png" />
+					</div>
+					<div class="ub ub-ac ub-pc ft085 ub-pc">
+						<span>0</span><span>浏览</span>
+					</div>
+				</div>
+				<div class="ub colred IsNeedValid">
+
+				</div>
+			</div>
+		</div>
+		<!--视频列表-->
+		<div class="ub ub-ver datalist video_list" id="videolist">
+
+		</div>
+		<!--文档列表-->
+		<div class="ub ub-ver datalist file_list dhide" id="filelist">
+			<a href="#" class="ub ub-ver flie_item fileurl">
+				<div class="ub umar-b">
+					<div class="ub ub-ac">
+						<img class="ub file_icon ub-img" src="common/images/person_nav02.png" />
+					</div>
+					<div class="ub ub-f1 filename">
+
+					</div>
+				</div>
+				<div class="ub sc-text">
+					<div class="ub ub-f1 ft085">
+						<span>0</span><span>人已学习</span>
+					</div>
+					<div class="ub colblue ft085">【查看】</div>
+				</div>
+			</a>
+		</div>
+		<div class="ub ub-ac ub-pc sc-text footer_line" style="padding-bottom: 0.6em;">
+			<span class="ub warmline"></span>
+			<span class="ub ft09">暂无更多考卷信息</span>
+			<span class="ub warmline"></span>
+		</div>
+		<!--视频解析模板-->
+		<div class="video_temp dhide">
+			<div class="ub video_item">
+				<div class="ub video_img">
+					<img src="common/images/free01.jpg" />
+				</div>
+				<div class="ub ub-ver ub-f1 video_right">
+					<div class="ub bc-text txthide finetest_name"></div>
+					<!--<div class="ub sc-text ft085 umar-t umar-b">
+						<span>第</span><span>1</span>课时
+					</div>-->
+					<div class="ub sc-text ft085 umar-t umar-b IsNeedValid">
+
+					</div>
+					<div class="ub ub-f1 ub-ae sc-text">
+						<div class="ub ub-f1 ft085">
+							<span>0</span><span>人已学习</span>
+						</div>
+						<div class="ub colblue ft085">【试看】</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="mui-popup-backdrop testmask dhide">
+			<div class="mui-popup mui-popup-in maskmain">
+				<div class="mui-popup-inner">
+					<div class="mui-popup-title">系统提示</div>
+					<div class="mui-popup-text" style="margin-bottom: 10px;">请输入试卷号</div>
+					<div class="mui-popup-input ub focusmain">
+						<div class="ub uinput ub-ac ub-f1">
+							<div class="ub ub-f1 codeput">
+								<input type="text" placeholder="0~4位" class="codetxt codetxt01" maxlength="4" onkeyup = "moveNext(this,0);" />
+							</div>
+							<div class="ub ub-ac sc-text">—</div>
+						</div>
+						<div class="ub ub-ac uinput ub-f1">
+							<div class="ub ub-f1 codeput">
+								<input type="text" placeholder="4~8位" class="codetxt codetxt02" maxlength="4" onkeyup = "moveNext(this,1);" />
+							</div>
+							<div class="ub ub-ac sc-text">—</div>
+						</div>
+						<div class="ub ub-ac uinput codeput ub-f1">
+							<input class="codetxt codetxt03" type="text" placeholder="8~12位" maxlength="4" onkeyup = "moveNext(this,2);" />
+						</div>
+					</div>
+				</div>
+				<div class="mui-popup-buttons">
+					<span class="mui-popup-button exitbtn">取消</span>
+					<span class="mui-popup-button mui-popup-button-bold surebtn">确定</span>
+				</div>
+			</div>
+		</div>
+
+	</body>
+
+</html>
+<script src="common/js/jquery-2.1.4.min.js"></script>
+<script src="common/js/mui.min.js"></script>
+<script src="Fsuperjs/Fsuper.js"></script>
+<script>
+	$(function() {
+		gettestinfor();
+		getresolvelist();
+		checkvideo();
+	});
+	var examId = localStorage.getItem("examId");
+	var videourl, isGet;
+	 
+	function moveNext(object,index){
+		if(object.value.length == 4){
+			$('.codetxt')[index+1].focus();
+		}
+	}
+
+	//获取考卷基本信息
+	function gettestinfor() {
+		var furl = "/YNAPIManage/WeChatApi/GetExamDocument?examId=" + examId;
+		var finetest_name = localStorage.getItem("finetest_name");
+		var finetest_class = localStorage.getItem("finetest_class");
+		var resolve_type = localStorage.getItem("resolve_type");
+		var IsNeedValid = localStorage.getItem("IsNeedValid");
+		$(".finetest_class").text(finetest_class);
+		$(".finetest_name").text(finetest_name);
+		$(".IsNeedValid").text(IsNeedValid);
+		$.ajax({
+			url: Serverurl + furl,
+			type: "get",
+			async: false,
+			dataType: "json",
+			crossDomain: true,
+			xhrFields: {
+				withCredentials: true
+			},
+			success: function(result) {
+				if(result.type == 1) {
+					$(".filename").text(result.resultdata.Name);
+					$(".fileurl").attr("href", result.resultdata.Url);
+				} else {
+					$(".fileurl").addClass("dhide");
+					//mui.toast(result.message);
+				}
+			},
+			error: function() {
+				mui.toast("网络错误");
+				$(".fileurl").addClass("dhide");
+			}
+
+		});
+	}
+	//获取精品考卷列表
+	function getresolvelist() {
+		var furl = "/YNAPIManage/WeChatApi/GetExamVideoList?examId=" + examId;
+		$.ajax({
+			url: Serverurl + furl,
+			type: "get",
+			async: false,
+			dataType: "json",
+			crossDomain: true,
+			xhrFields: {
+				withCredentials: true
+			},
+			success: function(result) {
+				if(result.type == 1) {
+					var datas = result.resultdata;
+					var length = datas.length;
+					if(length > 0) {
+						for(var i = 0; i < length; i++) {
+							addresolve(datas[i]);
+						}
+					}
+				} else {
+					//mui.toast(result.message);
+				}
+
+			},
+			error: function() {
+				mui.toast("网络错误");
+			}
+
+		});
+	}
+
+	function addresolve(data) {
+		var list = $(".video_list");
+		var item = $(".video_temp .video_item").clone();
+		var cururl = data.Url;
+		//cururl = cururl + '.mp4';
+		item.attr('onclick', "lookvideo(this)");
+		item.attr("id", data.Id);
+		item.attr("IsNeedValid", data.IsNeedValid);
+		item.attr("videourl", cururl);
+		item.find(".finetest_name").text(data.Name);
+		item.find(".IsNeedValid").text(data.IsNeedValid);
+		//		item.find(".finetest_time").text();
+		//		item.find(".finetest_look").text();
+		//		item.find(".resolve_type").text(data.ExamModel);
+		list.append(item);
+	}
+	//考卷列表点击
+	function lookvideo(dom) {
+		var videoid = $(dom).attr("id");
+		videourl = $(dom).attr("videourl");
+		var IsNeedValid = $(dom).attr("IsNeedValid");
+		var video_name = $(dom).find(".finetest_name").text();
+		localStorage.setItem("video_name", video_name);
+		if(isGet == '未授权') {
+			$(".testmask").addClass("mui-active").removeClass("dhide");
+		} else {
+			localStorage.setItem("videourl", videourl);
+			mui.openWindow({
+				url: 'videoplay.html',
+				id: 'videoplay',
+			});
+		}
+	}
+
+	//验证视频授权
+	function checkvideo() {
+		var furl = '/YNAPIManage/WeChatApi/CheckGetAuthorize?examId=' + examId;
+		$.ajax({
+			url: Serverurl + furl,
+			type: "get",
+			async: false,
+			dataType: "json",
+			crossDomain: true,
+			xhrFields: {
+				withCredentials: true
+			},
+			success: function(result) {
+				if(result.type == 1) {
+					isGet = result.resultdata.isGet;
+				} else {
+					isGet = '未授权';
+					mui.toast(result.message);
+				}
+			},
+			error: function() {
+				mui.toast("网络错误");
+			}
+
+		});
+	}
+	//考卷授权
+	$(".surebtn").on('click', function() {
+		getvideocode();
+	})
+
+	function getvideocode() {
+		var codetxt01 = $('.codetxt01').val();
+		var codetxt02 = $('.codetxt02').val();
+		var codetxt03 = $('.codetxt03').val();
+		
+		var examecode = codetxt01 + '-' + codetxt02 + '-' + codetxt03;
+		if(examecode == "" || examecode == null) {
+			mui.toast('请输入试卷号')
+			return;
+		}
+		var senddata = {
+			examId: examId,
+			code: examecode
+		}
+		var furl = '/YNAPIManage/WeChatApi/BindCodeAuthorize';
+		$.ajax({
+			url: Serverurl + furl,
+			type: "POST",
+			async: false,
+			dataType: "json",
+			data: senddata,
+			crossDomain: true,
+			xhrFields: {
+				withCredentials: true
+			},
+			success: function(result) {
+				var message = result.message;
+				if(message == "授权成功") {
+					localStorage.setItem("videourl", videourl);
+					mui.openWindow({
+						url: 'videoplay.html',
+						id: 'videoplay',
+					});
+				} else {
+					mui.toast(message);
+				}
+			},
+			error: function() {
+				mui.toast("网络错误");
+			}
+
+		});
+	}
+
+	//试卷输入框点击
+	$(".testmask,.exitbtn").on("click", function() {
+		$(".testmask").removeClass("mui-active").addClass("dhide");
+	})
+	$(".maskmain").on("click", function() {
+		event.stopPropagation();
+	})
+
+	//头部导航点击
+	$(".switch_navitem").click(function() {
+		var dom = $(this);
+		var navitem = $(".switch_navitem");
+		var curid = $(this).attr("id");
+		curlist = curid + "list";
+		navanimation(dom, navitem);
+		$(".datalist").addClass("dhide");
+		$("#" + curlist).removeClass("dhide");
+	});
+</script>

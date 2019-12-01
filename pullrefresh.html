@@ -1,0 +1,227 @@
+﻿<head>
+	<title>精品考卷</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="target-densitydpi=device-dpi, width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+	<link href="common/css/mui.min.css" rel="stylesheet" />
+	<link href="common/css/fonts/font-awesome.min.css" rel="stylesheet" />
+	<link href="common/css/icon.css" rel="stylesheet" />
+	<link href="common/css/ui-base.css" rel="stylesheet" />
+	<link href="common/css/ui-box.css" rel="stylesheet" />
+	<link href="common/css/ui-color.css" rel="stylesheet" />
+	<link href="common/css/common.css" rel="stylesheet" />
+	<link href="common/css/control.css" rel="stylesheet" />
+	<link href="maincss/lesson.css" rel="stylesheet" />
+</head>
+
+<body class="bc-text um-vp bc-bg">
+	<div class="ub ub-ver subtop">
+		<div class="ub ub-f1 search_box">
+			<div class="ub ub-ac ub-f1 ele_search uinput ele_put">
+				<input class="ulev-ele" type="text" placeholder="搜索" />
+			</div>
+		</div>
+		<div class="ub lesson_top">
+			<div class="ub ub-f1 lesson_list">
+				<div class="ub ub-ac col999 allsubject lesson_item colblue">全部</div>
+			</div>
+			<a href="#filterpage" class="ub ub-ac filter_btn" id="filter">
+				<img class="ub filter_img ub-img" src="common/images/filter.png" />
+			</a>
+		</div>
+	</div>
+	<div id="pullrefresh" class="mui-content mui-scroll-wrapper" style="margin-top: 5.8em;">
+		<div class="mui-scroll">
+			<div class="ub ub-ver finetest_list">
+
+			</div>
+		</div>
+	</div>
+
+	<div class="ub ub-ac ub-pc sc-text footer_line" style="padding-bottom: 0.6em;">
+		<span class="ub warmline"></span>
+		<span class="ub ft09">暂无更多考卷信息</span>
+		<span class="ub warmline"></span>
+	</div>
+	<!--筛选-->
+	<div class="filter_box" style="display: none;" id="filterpage">
+		<div class="ub ub-ver filter_main">
+			<div class="ub ub-ver fliter_mainitem">
+				<div class="ub sc-text filter_title">
+					科目
+				</div>
+				<div class="filter_list">
+					<div class="ub ub-ac ub-pc filter_item curfilter">全部</div>
+
+				</div>
+			</div>
+			<div class="ub ub-ver fliter_mainitem">
+				<div class="ub sc-text filter_title">
+					年级
+				</div>
+				<div class="filter_list">
+					<div class="ub ub-ac ub-pc filter_item curfilter">全部</div>
+
+				</div>
+			</div>
+			<div class="ub ub-ver fliter_mainitem">
+				<div class="ub sc-text filter_title">
+					价格
+				</div>
+				<div class="filter_list">
+					<div class="ub ub-ac ub-pc filter_item curfilter">全部</div>
+
+				</div>
+			</div>
+			<div class="ub filter_btnbox">
+				<div class="ub ub-f1 ub-fh ub-ac ub-pc filter_reset col999">重置</div>
+				<div class="ub ub-f1 ub-fh ub-ac ub-pc filter_finish colblue">完成</div>
+			</div>
+		</div>
+	</div>
+	<!--精品考卷-->
+	<div class="finetest_temp dhide">
+		<div class="ub finetest_item">
+			<div class="ub finetest_img">
+				<img src="common/images/free01.jpg" />
+			</div>
+			<div class="ub ub-ver ub-f1 finetest_right">
+				<div class="ub bc-text txthide finetest_name"></div>
+				<div class="ub ub-ac sc-text ft085 umar-t umar-b">
+					<span class="finetest_class">数学</span>
+					<span>|</span>
+					<span class="resolve_type">0</span>
+				</div>
+				<div class="ub sc-text">
+					<div class="ub ub-f1 ft085 finetest_time">
+						2018-12-09
+					</div>
+					<div class="ub colred ft085 IsNeedValid dhide">
+
+					</div>
+					<div class="ub dhide">
+						<div class="ub ub-ac">
+							<img class="ub ub-img track_img" src="common/images/track.png" />
+						</div>
+						<div class="ub ub-ac ub-pc ft085 ub-pc">
+							<span class="finetest_look">0</span><span>浏览</span>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!--科目-->
+	<div class="subject_temp dhide">
+		<div class="ub ub-ac col999 lesson_item">
+
+		</div>
+	</div>
+</body>
+
+</html>
+<script src="common/js/jquery-2.1.4.min.js"></script>
+<script src="common/js/mui.min.js"></script>
+<script src="Fsuperjs/Fsuper.js"></script>
+<script type="text/javascript" charset="utf-8">
+	var pager = {
+		name: '',
+		subject: '',
+		grade: '',
+		rows: 10
+	}; 
+	var totalPage; //总页码
+
+	$(function() {
+		pullRefresh(); //启用上拉下拉 
+	})
+
+	function pullRefresh() {
+		mui("#pullrefresh").pullRefresh({
+			up: {
+				contentrefresh: "正在加载...", //可选，正在加载状态时，上拉加载控件上显示的标题内容
+				contentnomore: '没 有 更 多 数 据 了', //可选，请求完毕若没有更多数据时显示的提醒内容；
+				callback: function() { //必选，刷新函数，根据具体业务来编写，比如通过ajax从服务器获取新数据；
+					window.setTimeout(function() {
+						getData(pager);
+					}, 500);
+				}
+			},
+			down: {
+				height: 50, //可选,默认50.触发下拉刷新拖动距离,
+				auto: true, //可选,默认false.首次加载自动下拉刷新一次
+				contentdown: "下拉可以刷新", //可选，在下拉可刷新状态时，下拉刷新控件上显示的标题内容
+				contentover: "释放立即刷新", //可选，在释放可刷新状态时，下拉刷新控件上显示的标题内容
+				contentrefresh: "正在刷新...", //可选，正在刷新状态时，下拉刷新控件上显示的标题内容
+				callback: function() { //必选，刷新函数，根据具体业务来编写，比如通过ajax从服务器获取新数据；
+					window.setTimeout(function() {
+						pager.page = 1; //页码      
+						//刷新要先清空父节点里面的子节点
+						$('.finetest_list').empty();
+						getData(pager);
+					}, 500);
+				}
+			}
+		})
+	}
+	//这个方法是负责向接口请求数据的，你可以选择你喜欢的方式，我这里是直接用的mui.ajax
+	function getData(params) {
+		var furl = "/YNAPIManage/WeChatApi/GetExamList";
+		$.ajax({
+			url: Serverurl + furl,
+			data: params,
+			dataType: 'json',
+			type: 'get',
+			crossDomain: true,
+			xhrFields: {
+				withCredentials: true
+			},
+			success: function(result) {
+				mui('#pullrefresh').pullRefresh().endPullupToRefresh(true);
+				if(result.type == 1){
+					var datas = result.resultdata;
+				var length = datas.rows.length;
+				if(length > 0) {
+					for(var i = 0; i < length; i++) {
+						addresolve(datas.rows[i]);
+					}
+				}
+
+				totalPage = datas.records % pager.size != 0 ?
+					parseInt(datas.records / pager.size) + 1 :
+					datas.records / pager.size;
+					console.log(totalPage);
+				if(totalPage == pager.page) { //总页码等于当前页码，停止上拉下拉
+					mui('#pullrefresh').pullRefresh().endPullupToRefresh(true);
+				} else {
+					pager.page++;
+					mui('#pullrefresh').pullRefresh().refresh(true);
+				}
+				}else{
+					mui('#pullrefresh').pullRefresh().endPullupToRefresh(true);
+					return;
+					
+				}
+				
+			},
+			error: function(xhr, type, errorThrown) {
+				//异常处理；
+				mui('#pullrefresh').pullRefresh().endPullupToRefresh(true);
+				mui('#pullrefresh').pullRefresh().refresh(true);
+			}
+		})
+	}
+
+	function addresolve(data) {
+		var list = $(".finetest_list");
+		var item = $(".finetest_temp .finetest_item").clone();
+		item.attr('onclick', "resolveDetail(this)");
+		item.attr("id", data.Id);
+		item.find(".finetest_name").text(data.Name);
+		item.find(".finetest_class").text(data.Subject);
+		item.find(".finetest_time").text();
+		item.find(".finetest_look").text();
+		item.find(".IsNeedValid").text(data.IsNeedValid);
+		item.find(".resolve_type").text(data.ExamModel);
+		list.append(item);
+	}
+</script>

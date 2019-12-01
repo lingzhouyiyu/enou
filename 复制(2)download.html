@@ -1,0 +1,346 @@
+﻿<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+
+	<head>
+		<title>资源下载</title>
+		<meta charset="utf-8">
+		<meta name="viewport" content="target-densitydpi=device-dpi, width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+		<link href="common/css/mui.min.css" rel="stylesheet" />
+		<link href="common/css/fonts/font-awesome.min.css" rel="stylesheet" />
+		<link href="common/css/icon.css" rel="stylesheet" />
+		<link href="common/css/ui-base.css" rel="stylesheet" />
+		<link href="common/css/ui-box.css" rel="stylesheet" />
+		<link href="common/css/ui-color.css" rel="stylesheet" />
+		<link href="common/css/common.css" rel="stylesheet" />
+		<link href="common/css/control.css" rel="stylesheet" />
+		<link href="maincss/lesson.css" rel="stylesheet" />
+	</head>
+
+	<body class="bc-text um-vp bc-bg">
+		<div id="pullrefresh" class="mui-content mui-scroll-wrapper">
+			<div class="mui-scroll">
+				<div class="ub ub-ver subtop">
+					<div class="ub ub-f1 search_box">
+						<div class="ub ub-ac ub-f1 ele_search uinput ele_put">
+							<input class="ulev-ele searchclass" id="searchclass" type="text" placeholder="输入资源名称" />
+						</div>
+					</div>
+					<div class="ub lesson_top">
+						<div class="ub ub-f1 lesson_list">
+							<div class="ub ub-ac col999 allsubject lesson_item colblue">全部</div>
+						</div>
+						<a href="#filterpage" class="ub ub-ac filter_btn" id="filter">
+							<img class="ub filter_img ub-img" src="common/images/filter.png" />
+						</a>
+					</div>
+				</div>
+				<div class="ub ub-ver finetest_list">
+
+				</div>
+				<div class="ub ub-ac ub-pc sc-text footer_line dhide" style="padding-bottom: 0.6em;">
+					<span class="ub warmline"></span>
+					<span class="ub ft09">暂无更多资源信息</span>
+					<span class="ub warmline"></span>
+				</div>
+
+			</div>
+		</div>
+		<!--筛选-->
+		<div class="filter_box" style="display: none; height: 100%;" id="filterpage">
+			<div class="ub ub-ver filter_main">
+				<div class="ub ub-ver fliter_mainitem dhide">
+					<div class="ub sc-text filter_title">
+						科目
+					</div>
+					<div class="filter_list">
+						<div class="ub ub-ac ub-pc filter_item curfilter">全部</div>
+
+					</div>
+				</div>
+				<div class="ub ub-ver fliter_mainitem">
+					<div class="ub sc-text filter_title">
+						年级
+					</div>
+					<div class="filter_list">
+						<div class="ub ub-ac ub-pc filter_item curfilter" grade=''>全部</div>
+						<div class="ub ub-ac ub-pc filter_item" grade='一年级'>一年级</div>
+						<div class="ub ub-ac ub-pc filter_item" grade='二年级'>二年级</div>
+						<div class="ub ub-ac ub-pc filter_item" grade='三年级'>三年级</div>
+						<div class="ub ub-ac ub-pc filter_item" grade='四年级'>四年级</div>
+						<div class="ub ub-ac ub-pc filter_item" grade='五年级'>五年级</div>
+						<div class="ub ub-ac ub-pc filter_item" grade='六年级'>六年级</div>
+						<div class="ub ub-ac ub-pc filter_item" grade='七年级'>七年级</div>
+						<div class="ub ub-ac ub-pc filter_item" grade='八年级'>八年级</div>
+						<div class="ub ub-ac ub-pc filter_item" grade='九年级'>九年级</div>
+
+					</div>
+				</div>
+				<div class="ub ub-ver fliter_mainitem dhide">
+					<div class="ub sc-text filter_title">
+						价格
+					</div>
+					<div class="filter_list">
+						<div class="ub ub-ac ub-pc filter_item curfilter">全部</div>
+
+					</div>
+				</div>
+				<div class="ub filter_btnbox">
+					<div class="ub ub-f1 ub-fh ub-ac ub-pc filter_reset col999">重置</div>
+					<div class="ub ub-f1 ub-fh ub-ac ub-pc filter_finish colblue">完成</div>
+				</div>
+			</div>
+		</div>
+		<!--精品考卷-->
+		<div class="finetest_temp dhide">
+			<a href="#" class="ub finetest_item">
+				<div class="ub finetest_img">
+					<img class="subject_img" src="common/images/download.jpg" />
+				</div>
+				<div class="ub ub-ver ub-pc ub-f1 finetest_right">
+					<div class="ub bc-text txthide2 finetest_name"></div>
+					<div class="ub ub-ac umar-t">
+						<div class="ub ub-ac ub-f1  colred IsNeedValid"></div>
+						<div class="ub ub-ac ub-pe colblue">【点击下载】</div>
+					</div>
+				</div>
+			</a>
+		</div>
+		<!--科目-->
+		<div class="subject_temp dhide">
+			<div class="ub ub-ac col999 lesson_item">
+
+			</div>
+		</div>
+	</body>
+
+</html>
+<script src="common/js/jquery-2.1.4.min.js"></script>
+<script src="common/js/mui.min.js"></script>
+<script src="Fsuperjs/Fsuper.js"></script>
+<script>
+	$(function() {
+		hashback();
+		getresolvelist();
+		getsubjetlist();
+	});
+
+	//获取精品考卷列表
+	var checksubject = '';
+	var checkgrade = '';
+	var curpage = 0;
+	var isup = 0;
+	var isover = false;
+	mui.init({
+		pullRefresh: {
+			container: '#pullrefresh',
+			down: {
+				callback: pulldownRefresh
+			},
+			up: {
+				contentrefresh: '正在加载...',
+				contentnomore: '暂无更多信息',
+				callback: pullupRefresh
+			}
+		}
+	});
+
+	function pullupRefresh() {
+		setTimeout(function() {
+			isup = 1;
+			getresolvelist(isup);
+			mui('#pullrefresh').pullRefresh().endPullupToRefresh(isover);
+		}, 500);
+	}
+
+	function pulldownRefresh() {
+		setTimeout(function() {
+			$(".finetest_list").empty();
+			isup = 0;
+
+			getresolvelist(isup);
+			mui('#pullrefresh').pullRefresh().endPulldownToRefresh();
+			mui('#pullrefresh').pullRefresh().refresh(true);
+		}, 500);
+
+	}
+
+	function getresolvelist(isup) {
+		var furl = "/YNAPIManage/WeChatApi/GetDownloadList";
+		if(isup == 1) {
+			curpage++;
+		} else {
+			curpage = 1;
+		}
+		senddata = {
+			name: '',
+			subject: checksubject,
+			grade: checkgrade,
+			rows: 10,
+			page: curpage,
+		}
+		$.ajax({
+			url: Serverurl + furl,
+			type: "get",
+			async: false,
+			dataType: "json",
+			data: senddata,
+			crossDomain: true,
+			xhrFields: {
+				withCredentials: true
+			},
+			success: function(result) {
+				var length = 0;
+
+				if(result.type == 1) {
+
+					var datas = result.resultdata;
+					length = datas.length;
+					if(length > 0) {
+						for(var i = 0; i < length; i++) {
+							addresolve(datas[i]);
+						}
+
+					}
+
+				} else {
+					isover = true;
+					mui('#pullrefresh').pullRefresh().endPullupToRefresh(true);
+				}
+
+			},
+			error: function() {
+				mui.toast("网络错误")
+			}
+		});
+	}
+
+	function addresolve(data) {
+		var list = $(".finetest_list");
+		var item = $(".finetest_temp .finetest_item").clone();
+		item.attr("id", data.Id);
+		item.attr("href", data.Url);
+		item.attr("Key", data.Key);
+		item.attr("ResMimeType", data.ResMimeType);
+		item.find(".finetest_name").text(data.Name);
+		item.find(".IsNeedValid").text(data.IsNeedValid);
+		item.attr('onclick', "dbdownload(this)");
+		list.append(item);
+	}
+	//考卷列表点击
+	function dbdownload(dom) {
+		var cururl;
+		var curname = $(dom).find(".finetest_name").text();
+		var curkey = $(dom).attr("Key");
+		var curtype = $(dom).attr("ResMimeType");
+		var furl = "/YNAPIManage/WeChatApi/DowloadFileByKey";
+		var senddata = {
+			key: curkey,
+			mimeType: curtype,
+			realName: curname
+		}
+		var cururl = '/YNAPIManage/WeChatApi/DowloadFileByKey?key=' + curkey + '&mimeType=' + curtype + '&realName=' + curname;
+
+		mui.openWindow({
+			url: Serverurl + cururl
+		});
+	}
+	//获取科目列表
+	function getsubjetlist() {
+		var furl = "/YNAPIManage/WeChatApi/GetSubjectInfo";
+		$.ajax({
+			url: Serverurl + furl,
+			type: "get",
+			async: false,
+			dataType: "json",
+			crossDomain: true,
+			xhrFields: {
+				withCredentials: true
+			},
+			success: function(result) {
+				var datas = result.resultdata;
+				var length = datas.length;
+				if(length > 0) {
+					for(var i = 0; i < length; i++) {
+						addsubjet(datas[i]);
+					}
+				}
+			},
+			error: function() {
+				mui.toast("网络错误")
+			}
+
+		});
+	}
+
+	function addsubjet(data) {
+		var list = $(".lesson_list");
+		var item = $(".subject_temp .lesson_item").clone();
+		item.attr('onclick', 'subjectclick(this)');
+		item.text(data.ItemName);
+		item.attr('checkval', data.ItemName)
+		list.append(item);
+	}
+
+	function subjectclick(dom) {
+		checksubject = $(dom).attr("checkval");
+		$('.lesson_list .lesson_item').removeClass('colblue');
+		$(dom).addClass('colblue');
+		$(".finetest_list").empty();
+		isup = 0;
+		getresolvelist(isup);
+	}
+
+	//头部全部点击
+	$('.allsubject').on('click', function() {
+		$('.lesson_list .lesson_item').removeClass('colblue');
+		$(this).addClass('colblue');
+		checksubject = '';
+		checkgrade = '';
+		$(".finetest_list").empty();
+		isup = 0;
+		getresolvelist(isup);
+	})
+
+	$(".filter_btn").on("click", function() {
+
+		hashswitch($(this));
+	})
+	$(".filter_box").on("click", function() {
+		dbgoback($(this));
+	})
+	//筛选
+	$(".filter_item").on("click", function() {
+		$(this).parents(".filter_list").find(".filter_item").removeClass("curfilter");
+		checkgrade = $(this).attr('grade');
+		$(this).addClass("curfilter");
+		event.stopPropagation();
+	})
+
+	//年级检索
+	$('.filter_finish').on('click', function() {
+		$(".finetest_list").empty();
+		isup = 0;
+		getresolvelist(isup);
+	})
+
+	document.getElementById('searchclass').addEventListener('input', function(e) {
+		var searchtxt = $('.searchclass').val();
+		checksubject = searchtxt;
+		$(".finetest_list").empty();
+		isup = 0;
+		getresolvelist(isup);
+	});
+
+	mui("#pullrefresh").on('tap', '.lesson_item', function(event) {
+		this.click();
+	});
+	mui("#pullrefresh").on('tap', '.finetest_item', function(event) {
+		this.click();
+	});
+	mui("#pullrefresh").on('tap', '.depart_time', function(event) {
+		this.click();
+	});
+	mui("#pullrefresh").on('tap', '.filter_btn', function(event) {
+		this.click();
+	});
+</script>

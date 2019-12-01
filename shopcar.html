@@ -1,0 +1,497 @@
+﻿<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+
+	<head>
+		<title>购物车</title>
+		<meta charset="utf-8">
+		<meta name="viewport" content="target-densitydpi=device-dpi, width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+		<link href="common/css/mui.min.css" rel="stylesheet" />
+		<link href="common/css/fonts/font-awesome.min.css" rel="stylesheet" />
+		<link href="common/css/swiper.min.css" rel="stylesheet" />
+		<link href="common/css/icon.css" rel="stylesheet" />
+		<link href="common/css/ui-base.css" rel="stylesheet" />
+		<link href="common/css/ui-box.css" rel="stylesheet" />
+		<link href="common/css/ui-color.css" rel="stylesheet" />
+		<link href="common/css/common.css" rel="stylesheet" />
+		<link href="common/css/control.css" rel="stylesheet" />
+		<link href="maincss/lesson.css" rel="stylesheet" />
+		<link href="maincss/addr.css" rel="stylesheet" />
+		<style>
+			.finetest_item {
+				margin-bottom: 0.5em;
+			}
+			
+			.ctrlNum {
+				width: 3em !important;
+			}
+			
+			.pro-num {
+				text-align: center;
+			}
+		</style>
+	</head>
+
+	<body class="bc-text um-vp bc-bg">
+		<div class="ub checkall-top">
+			<div class="ub ub-f1">
+				<div class="ub ub-ac checkleft-box checkall" rel='check'>
+					<img class="ub checkbox-before" src="common/images/radio_imgbefore.png" />
+					<img class="ub checkbox-after dhide" src="common/images/radio_imgafter.png" />
+				</div>
+				<div class="ub ub-ac">
+					<div class="ub ub-ac">
+						<img class="ub ub-img shop-img" src="common/images/shop-img.png" />
+					</div>
+					<div class="ub ub-ac">一诺教育</div>
+				</div>
+			</div>
+			<div class="ub ub-ac shopcar-deletet dhide">删除</div>
+		</div>
+		<div class="ub ub-ver ub-f1 paperbox shopcarlist">
+
+		</div>
+		<div class="ub ub-ac buyfooter">
+			<div class="ub ub-pc ub-f1">
+				<span>合计：</span>
+				<span class="colgloden">￥</span><span class="colgloden ft125 countmoney">0</span>
+			</div>
+			<div class="ub ub-f1 ub-pc ub-ac buybtn">结算</div>
+		</div>
+		<div class="goodstemp ">
+			<div class="ub ub-f1 ub-ver finetest_item" dbradio='radiocheck'>
+				<div class="ub ub-ac goods-top">
+					<div class="ub ub-ac checkleft-box">
+						<img class="ub checkbox-before" src="common/images/radio_imgbefore.png" />
+						<img class="ub checkbox-after dhide" src="common/images/radio_imgafter.png" />
+					</div>
+					<div class="ub ub-ac  finetest_img">
+						<img class="subject_img" src="common/images/default.jpg" />
+					</div>
+					<div class="ub ub-ver ub-pc ub-f1 finetest_right">
+						<div class="ub bc-text umar-b Fname"></div>
+						<div class="ub ub-ac">
+							<div class="ub ub-ac colgloden ft09">
+								<span>￥</span>
+								<span class="Fprice">0.00</span>
+							</div>
+							<div class="ub ub-f1 ub-pe  buycontral">
+								<div class="ub ub-ac ub-pc ft125 ctrlL pro-reduce">
+									-
+								</div>
+								<div class="ub ub-ac ub-pc uinput ctrlNum">
+									<input class="pro-num" type="number" value="1" />
+								</div>
+								<div class="ub ub-ac ub-pc ft125 ctrlR pro-add">
+									+
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="ub goods_bottom ft09">
+					<div class="ub ub-ac sc-text deletet-goods">删除</div>
+					<div class="ub ub-ac ub-f1 ub-pe">
+						<div class="ub ub-ac">
+							<span>共</span><span class="itemnum">0</span><span class="marr1">件商品</span>
+							<span>小计：</span><span class="colgloden">￥</span>
+							<span class="itemprice colgloden ft125">0.00</span>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+
+</html>
+<script src="common/js/jquery-2.1.4.min.js"></script>
+<script src="common/js/swiper.min.js"></script>
+<script src="common/js/mui.min.js"></script>
+<script src="Fsuperjs/Fsuper.js"></script>
+<script>
+	$(function() {
+//		getshoparlist();
+	});
+	sessionStorage.setItem("shopcar-refresh", true);
+	//获取访问id
+	function getVisit() {
+		var id = '';
+		var furl = "/YNAPIManage/WeChatApi/VisitId";
+		$.ajax({
+			url: Serverurl + furl,
+			type: "get",
+			async: false,
+			dataType: "json",
+			crossDomain: true,
+			xhrFields: {
+				withCredentials: true
+			},
+			success: function(result) {
+				id = result.resultdata
+			},
+			error: function() {}
+		});
+		return id;
+	}
+	//获取购物车标识
+	function getshopcarid() {
+		var shopCartId;
+		var furl = "/YNAPIManage/WeChatApi/GetShopCartId";
+		$.ajax({
+			url: Serverurl + furl,
+			type: "GET",
+			async: false,
+			dataType: "json",
+			crossDomain: true,
+			xhrFields: {
+				withCredentials: true
+			},
+			success: function(result) {
+				if(result.type == 1) {
+					shopCartId = result.resultdata;
+				} else {
+					//mui.toast('获取数据失败');
+					//return;
+				}
+			},
+			error: function() {
+				//mui.toast("网络错误")
+			}
+
+		});
+		return shopCartId;
+	}
+	//获取购物车列表
+	function getshoparlist() {
+		var shopCartId = getshopcarid();
+		var furl = "/YNAPIManage/WeChatApi/GetShopCartGoodss?shopCartId=" + shopCartId;
+		$.ajax({
+			url: Serverurl + furl,
+			type: "GET",
+			async: false,
+			dataType: "json",
+			crossDomain: true,
+			xhrFields: {
+				withCredentials: true
+			},
+			success: function(result) {
+				if(result.type == 1) {
+					var datas = result.resultdata;
+					var length = datas.length;
+					if(length > 0) {
+						for(var i = 0; i < length; i++) {
+							additem(datas[i]);
+						}
+					}
+				}
+			},
+			error: function() {
+				//mui.toast("网络错误")
+			}
+		});
+	}
+
+	function additem(datas) {
+		var list = $(".shopcarlist");
+		var item = $(".goodstemp .finetest_item").clone();
+		var headimg = datas.HeadIcon;
+		item.find(".Fname").text(datas.Name);
+		item.find(".Fprice").text(datas.UnitPrice);
+		item.find(".pro-num").val(datas.GoodsNumber);
+		item.find(".itemnum").text(datas.GoodsNumber);
+		item.find(".itemprice").text(datas.Price);
+		item.find(".Fprice").text(datas.UnitPrice);
+		item.attr('ShopCartId', datas.ShopCartId);
+		item.attr('GoodsId', datas.GoodsId);
+		item.attr('Id', datas.Id);
+		if(headimg != null && headimg != '') {
+			item.find(".subject_img").attr('src', headimg);
+		}
+		item.find(".pro-add").attr('onclick', "addgoods(this)");
+		item.find(".pro-reduce").attr('onclick', "reducegoods(this)");
+		item.find('.checkleft-box').attr('onclick', "checkgoods(this)");
+		item.find('.deletet-goods').attr('onclick', "deletegoods(this)");
+		item.find('.pro-num').attr('onkeyup', "inputclick(this)");
+		list.append(item);
+	}
+	//商品加减
+	var num = "";
+	var cartId, ShopCartGoodsId, GoodsNumber, itemprice,GoodsId;
+	//监测输入框
+	function inputclick(dom) {
+		var curval = $(dom).val();
+		var curprice = $(dom).closest('.finetest_item').find('.Fprice').text();
+		if(curval.length == 1) {
+			curval = curval.replace(/[^1-9]/g, '');
+			$(dom).val(curval);
+		} else if((curval == 0)) {
+			$(dom).val(1);
+			curval = 1;
+		} else if(curval == "") {
+			$(dom).val(1);
+			curval = 1;
+		} else {
+			curval = curval.replace(/\D/g, '');
+			$(dom).val(curval);
+		}
+		GoodsNumber = curval;
+		$(dom).closest('.finetest_item').find('.itemnum').text(curval);
+		cartId = $(dom).closest('.finetest_item').attr('ShopCartId');
+		ShopCartGoodsId = $(dom).closest('.finetest_item').attr('Id');
+		GoodsId = $(dom).closest('.finetest_item').attr('GoodsId');
+		itemprice = curprice * curval;
+		$(dom).closest('.finetest_item').find('.itemprice ').text(itemprice);
+		totalmoney();
+		changegoods();
+	}
+
+	//添加商品数量
+	function addgoods(dom) {
+		var goods_num = $(dom).siblings('.ctrlNum').find('.pro-num');
+		var curprice = $(dom).closest('.finetest_item').find('.Fprice').text();
+		curprice = parseFloat(curprice);
+		num = $(goods_num).val();
+		num++;
+		goods_num.val(num); //增加后商品数量
+		$(dom).closest('.finetest_item').find('.itemnum').text(num);
+		cartId = $(dom).closest('.finetest_item').attr('ShopCartId');
+		ShopCartGoodsId = $(dom).closest('.finetest_item').attr('Id');
+		GoodsId = $(dom).closest('.finetest_item').attr('GoodsId');
+		GoodsNumber = num;
+		itemprice = curprice * num;
+		$(dom).closest('.finetest_item').find('.itemprice ').text(itemprice);
+		totalmoney();
+		changegoods();
+
+	}
+
+	//减少商品数量
+	function reducegoods(dom) {
+		var goods_num = $(dom).siblings('.ctrlNum').find('.pro-num');
+		num = $(goods_num).val();
+		var curprice = $(dom).closest('.finetest_item').find('.Fprice').text();
+		curprice = parseFloat(curprice);
+		if(num > 0) {
+			if(num == 1) {
+				goods_num.val(1);
+			} else {
+				num--;
+				goods_num.val(num);
+				$(dom).closest('.finetest_item').find('.itemnum').text(num);
+			}
+			cartId = $(dom).closest('.finetest_item').attr('ShopCartId');
+			ShopCartGoodsId = $(dom).closest('.finetest_item').attr('Id');
+			GoodsId = $(dom).closest('.finetest_item').attr('GoodsId');
+			GoodsNumber = num;
+			itemprice = curprice * num;
+			$(dom).closest('.finetest_item').find('.itemprice ').text(itemprice);
+			totalmoney();
+			changegoods();
+		}
+	}
+
+	//修改购物车数量
+	function changegoods() {
+		var visitId = getVisit();
+		var furl = "/YNAPIManage/WeChatApi/UpdateGoods";
+		var entydata = {
+			ShopCartGoodsId: ShopCartGoodsId,
+			GoodsNumber: GoodsNumber,
+			Price: itemprice,
+			GoodsId: GoodsId
+		}
+		var postdata = {
+			visitId: visitId,
+			cartId: cartId,
+			entity: entydata
+		};
+		$.ajax({
+			url: Serverurl + furl,
+			type: "POST",
+			async: false,
+			dataType: "json",
+			data: postdata,
+			crossDomain: true,
+			xhrFields: {
+				withCredentials: true
+			},
+			success: function(result) {
+
+			},
+			error: function() {
+
+			}
+		});
+	}
+
+	//商品列表单选择
+	function checkgoods(dom) {
+		var checkbox_before = $(dom).find(".checkbox-before");
+		var checkbox_after = $(dom).find(".checkbox-after");
+		var dbradio = $(dom).closest('.finetest_item').attr("dbradio");
+		var allitem = $('.shopcarlist .finetest_item').length;
+		if(dbradio == "radiocheck") {
+			$(checkbox_before).addClass("dhide");
+			$(checkbox_after).removeClass("dhide");
+			$(dom).closest('.finetest_item').attr("dbradio", "radiochecked");
+			$(dom).closest('.finetest_item').addClass("onecheck");
+			totalmoney();
+		}
+		if(dbradio == "radiochecked") {
+			$(checkbox_before).removeClass("dhide");
+			$(checkbox_after).addClass("dhide");
+			$(dom).closest('.finetest_item').attr("dbradio", "radiocheck");
+			$(dom).closest('.finetest_item').removeClass("onecheck");
+			$('.checkall .checkbox-before').removeClass('dhide');
+			$('.checkall .checkbox-after').addClass('dhide');
+			$('.checkall').attr("rel", "check");
+			totalmoney();
+		}
+		var checkitem = $('.onecheck').length;
+		if(checkitem == allitem) {
+			$('.checkall .checkbox-before').addClass('dhide');
+			$('.checkall .checkbox-after').removeClass('dhide');
+			$('.checkall').attr("rel", "checked");
+		}
+	}
+	var countmoney = 0;
+
+	function eachlist(doms) {
+		var strList = [];
+		if($(doms).length > 0) {
+			doms.each(function(i, item) {
+				var obj = {};
+				var GoodsId = $(item).attr("GoodsId");
+				var ShopCartId = $(item).attr("ShopCartId");
+				var GoodsNumber = parseFloat($(item).find(".itemnum").text());
+				var price = parseFloat($(item).find(".itemprice ").text());
+				countmoney = countmoney + price;
+				obj.GoodsId = GoodsId;
+				obj.ShopCartId = ShopCartId;
+				obj.GoodsNumber = GoodsNumber;
+				obj.GoodsPrice = price;
+				strList.push(obj);
+			});
+		}
+		return strList;
+	}
+
+	//计算总价
+	function totalmoney() {
+		countmoney = 0;
+		var list = $('.onecheck');
+		eachlist(list);
+		$('.countmoney').text(countmoney);
+	}
+
+	//全选
+	$('.checkall').on('click', function() {
+		var checkbox_before = $(this).find(".checkbox-before");
+		var checkbox_after = $(this).find(".checkbox-after");
+		var rel = $(this).attr("rel");
+		if(rel == "check") {
+			$(checkbox_before).addClass("dhide");
+			$(checkbox_after).removeClass("dhide");
+			$(this).attr("rel", "checked");
+			$('.shopcarlist .finetest_item').find(".checkbox-before").addClass("dhide");
+			$('.shopcarlist .finetest_item').find(".checkbox-after").removeClass("dhide");
+			$('.shopcarlist .finetest_item').attr("dbradio", "radiochecked");
+			$('.shopcarlist .finetest_item').addClass("onecheck");
+			totalmoney();
+		}
+		if(rel == "checked") {
+			$(checkbox_before).removeClass("dhide");
+			$(checkbox_after).addClass("dhide");
+			$(this).attr("rel", "check");
+			$('.shopcarlist .finetest_item').find(".checkbox-before").removeClass("dhide");
+			$('.shopcarlist .finetest_item').find(".checkbox-after").addClass("dhide");
+			$('.shopcarlist .finetest_item').attr("dbradio", "radiocheck");
+			$('.shopcarlist .finetest_item').removeClass("onecheck");
+			totalmoney();
+		}
+	});
+
+	//结算，创建订单
+	var orderCode = '';
+	$('.buybtn').on('click', function() {
+		createorder();
+	})
+
+	function createorder() {
+		var visitId = getVisit();
+		var furl = "/YNAPIManage/WeChatApi/CreateOrder";
+		var list = $('.onecheck');
+		var strList = eachlist(list);
+		strList = JSON.stringify(strList);
+		var checklength = $('.onecheck').length;
+		var postdata = {
+			visitId: visitId,
+			strList: strList
+		}
+		if(checklength <= 0) {
+			mui.toast('请选择需要结算的商品');
+			return;
+		}
+		$.ajax({
+			url: Serverurl + furl,
+			type: "POST",
+			async: false,
+			dataType: "json",
+			data: postdata,
+			crossDomain: true,
+			xhrFields: {
+				withCredentials: true
+			},
+			success: function(result) {
+				if(result.type == 1) {
+					orderCode = result.resultdata.id;
+					localStorage.setItem("orderCode", orderCode);
+					mui.openWindow({
+						url: 'sureorder.html',
+						id: 'sureorder',
+					});
+				} else {
+					mui.toast(result.message);
+				}
+			},
+			error: function() {
+
+			}
+		});
+	}
+	//删除购物车商品
+	function deletegoods(dom) {
+		var visitId = getVisit();
+		var shopGoodsId = $(dom).closest('.finetest_item').attr("id");
+		var furl = "/YNAPIManage/WeChatApi/DeleteGoods";
+		var postdata = {
+			visitId: visitId,
+			shopGoodsId: shopGoodsId
+		}
+
+		$.ajax({
+			url: Serverurl + furl,
+			type: "POST",
+			async: false,
+			dataType: "json",
+			data: postdata,
+			crossDomain: true,
+			xhrFields: {
+				withCredentials: true
+			},
+			success: function(result) {
+				if(result.type == 1) {
+					$(dom).closest('.finetest_item').remove();
+					refresh();
+				} else {
+					mui.toast(result.message);
+				}
+			},
+			error: function() {
+
+			}
+		});
+	}
+	$('.shopcar-deletet').on('click', function() {
+		deletegoods();
+	})
+</script>
